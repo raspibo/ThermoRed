@@ -1,0 +1,44 @@
+<html>
+
+<head>
+  <title>ThermoRed</title>
+  <meta name="GENERATOR" content="Midnight Commander (mcedit)">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Keywords" content="termoregolatore, thermo, temperatura, python">
+  <meta name="Author" content="Davide">
+
+<script type="text/javascript"
+  src="dygraph-combined.js"></script>
+</head>
+
+
+<body>
+<title>Temperature Graphic</title>
+
+<p>
+The chart is interactive:
+you can mouse over to highlight individual values.
+You can click and drag to zoom.
+Double-clicking will zoom you back out.
+Shift-drag will pan.
+You can change the number and hit enter to adjust the averaging period.
+</p>
+
+<div id="graphdiv" style="position:absolute; left:10px; right:10px; top:200px; bottom:10px;"></div>
+<script type="text/javascript">
+  g = new Dygraph(
+
+    // containing div
+    document.getElementById("graphdiv"),
+
+    // CSV or path to a CSV file.
+    "temperature.csv",
+    {showRoller:false,
+    ylabel: 'Temperature (C)',}
+
+  );
+</script>
+
+
+</body>
+</html>
