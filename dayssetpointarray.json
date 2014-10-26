@@ -1,0 +1,709 @@
+[
+    {
+        "hours": [
+            {
+                "temperature": "Tday", 
+                "hour": "00"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "01"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "02"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "03"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "04"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "05"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "06"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "07"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "08"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "09"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "10"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "11"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "12"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "13"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "14"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "15"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "16"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "17"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "18"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "19"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "20"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "21"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "22"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "23"
+            }
+        ], 
+        "day": "Lunedi"
+    }, 
+    {
+        "hours": [
+            {
+                "temperature": "Tice", 
+                "hour": "00"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "01"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "02"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "03"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "04"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "05"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "06"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "07"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "08"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "09"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "10"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "11"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "12"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "13"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "14"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "15"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "16"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "17"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "18"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "19"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "20"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "21"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "22"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "23"
+            }
+        ], 
+        "day": "Martedi"
+    }, 
+    {
+        "hours": [
+            {
+                "temperature": "Tday", 
+                "hour": "00"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "01"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "02"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "03"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "04"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "05"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "06"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "07"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "08"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "09"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "10"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "11"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "12"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "13"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "14"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "15"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "16"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "17"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "18"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "19"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "20"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "21"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "22"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "23"
+            }
+        ], 
+        "day": "Mercoledi"
+    }, 
+    {
+        "hours": [
+            {
+                "temperature": "Tday", 
+                "hour": "00"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "01"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "02"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "03"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "04"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "05"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "06"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "07"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "08"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "09"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "10"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "11"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "12"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "13"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "14"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "15"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "16"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "17"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "18"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "19"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "20"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "21"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "22"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "23"
+            }
+        ], 
+        "day": "Giovedi"
+    }, 
+    {
+        "hours": [
+            {
+                "temperature": "Tday", 
+                "hour": "00"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "01"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "02"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "03"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "04"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "05"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "06"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "07"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "08"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "09"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "10"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "11"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "12"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "13"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "14"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "15"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "16"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "17"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "18"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "19"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "20"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "21"
+            }, 
+            {
+                "temperature": "Tice", 
+                "hour": "22"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "23"
+            }
+        ], 
+        "day": "Venerdi"
+    }, 
+    {
+        "hours": [
+            {
+                "temperature": "Tnight", 
+                "hour": "00"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "01"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "02"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "03"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "04"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "05"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "06"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "07"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "08"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "09"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "10"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "11"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "12"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "13"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "14"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "15"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "16"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "17"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "18"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "19"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "20"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "21"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "22"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "23"
+            }
+        ], 
+        "day": "Sabato"
+    }, 
+    {
+        "hours": [
+            {
+                "temperature": "Tday", 
+                "hour": "00"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "01"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "02"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "03"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "04"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "05"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "06"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "07"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "08"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "09"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "10"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "11"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "12"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "13"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "14"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "15"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "16"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "17"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "18"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "19"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "20"
+            }, 
+            {
+                "temperature": "Tnight", 
+                "hour": "21"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "22"
+            }, 
+            {
+                "temperature": "Tday", 
+                "hour": "23"
+            }
+        ], 
+        "day": "Domenica"
+    }
+]
