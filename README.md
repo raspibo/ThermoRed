@@ -12,7 +12,7 @@ una centralina facente parte di un'impianto domotico .. ecc.ecc. ..
 
 
 
-= Istruzioni =
+== Istruzioni ==
 
 Per il test dell'intefaccia web non serve il collegamento della sonda di temperatura,
 c\'e\` gia\` un "temperature.csv" che contiene alcuni dati.

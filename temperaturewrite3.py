@@ -6,6 +6,8 @@
 # qualcosa di differente ? Ma cosa ? E come ?
 
 import time
+import os
+import json
 
 # Lettura file sonda temperatura
 # ATTENZIONE: il file temperatura e` differente per ogni sensore !!!!
@@ -24,6 +26,20 @@ FileSondaT = open('/sys/bus/w1/devices/10-0008029444b6/w1_slave','r')
 # Apertura file temperature.csv in "append mode"
 FileTempsCSV = open('temperature.csv','a')
 
+# Serve il file dei set point e dei giorni
+if os.path.exists("setpointarray.json"):
+	with open("setpointarray.json") as JsonFileSetPoints:
+		SetPoints = json.load(JsonFileSetPoints)
+else:
+	print ("Errore, manca il file \"setpointarray.json\"")
+# Questo e` il file di setpoint giornaliero
+# Se il file esiste lo apro, se no, genero entrambi SetPoints e file
+if os.path.exists("dayssetpointarray.json"):
+	with open("dayssetpointarray.json") as JsonFileDays:
+		DaysSetPoints = json.load(JsonFileDays)
+else:
+	print ("Errore, manca il file \"daysetpointarray.json\"")
+
 ## Devo scrivere il file CSV con i parametri separati da virgole
 ## La struttura che ho pensato di utilizzare e`:
 ## Data,Temperatura di Setpoint, Temperatura 1
@@ -31,9 +47,24 @@ FileTempsCSV = open('temperature.csv','a')
 FileTempsCSV.write(time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()))
 # Aggiungo la virgola di separazione
 FileTempsCSV.write(',')
-# Prima devo "calcolare" il setpoint
-# Metto un valore a caso
-SetPoint = '25'
+
+### Prima devo "calcolare" il setpoint
+Giorno=time.strftime("%w", time.localtime())
+Ora=time.strftime("%H", time.localtime())
+# 0 Domenica .. 6
+if Giorno == "0":
+	CalcoloGiorno="6"
+else:
+	CalcoloGiorno=Giorno-1
+
+# Puntatore giorno, ore, ora, temperatura
+# nel file json
+#print (DaysSetPoints[int(CalcoloGiorno)]["hours"][int(Ora)]["temperature"])
+# Ricerca della temperatura nei files json
+for i in range(len(SetPoints)):
+	if (SetPoints[i]["name"]) == (DaysSetPoints[int(CalcoloGiorno)]["hours"][int(Ora)]["temperature"]):
+		SetPoint = (SetPoints[i]["temperature"])
+
 # Poi scrivo il setpoit richiesto
 FileTempsCSV.write(SetPoint)
 # Aggiungo la virgola di separazione

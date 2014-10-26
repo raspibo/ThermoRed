@@ -1,0 +1,17 @@
+[
+    {
+        "display": "Temperatura Giorno", 
+        "name": "Tday", 
+        "temperature": "20"
+    }, 
+    {
+        "display": "Temperatura Notte", 
+        "name": "Tnight", 
+        "temperature": "16"
+    }, 
+    {
+        "display": "Temperatura Antigelo", 
+        "name": "Tice", 
+        "temperature": "10"
+    }
+]
