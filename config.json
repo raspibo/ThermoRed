@@ -1,0 +1,79 @@
+[
+    {
+        "display": "Cronotermostato ThermoRed", 
+        "value": "id", 
+        "name": "thermored"
+    }, 
+    {
+        "display": "Accensione impianto", 
+        "value": "on", 
+        "name": "plant"
+    }, 
+    {
+        "display": "Abilitazione riscaldamento (interruttore)", 
+        "value": "on", 
+        "name": "enable"
+    }, 
+    {
+        "display": "Accensione riscaldamento (contatto termostato)", 
+        "value": "on", 
+        "name": "riscaldamento"
+    }, 
+    {
+        "display": "Directory 1 wire", 
+        "value": "/sys/bus/w1/devices/", 
+        "name": "dir1w"
+    }, 
+    {
+        "display": "Sensori di temperatura", 
+        "value": [
+            {
+                "display": "Sonda", 
+                "name": "temperatura", 
+                "filename": "10-0008029444b6"
+            }, 
+            {
+                "display": "Sonda di temperatura 2", 
+                "name": "adfg", 
+                "filename": "10-0008029444b6"
+            }
+        ], 
+        "name": "sensori"
+    }, 
+    {
+        "display": "Sensore Termostato", 
+        "value": "1", 
+        "name": "termostato"
+    }, 
+    {
+        "display": "Frequenza di aggiornamento in minuti", 
+        "value": "20", 
+        "name": "minutecycle"
+    }, 
+    {
+        "display": "Grafico temperature", 
+        "value": [
+            {
+                "display": "Data e ora", 
+                "value": "datadilettura", 
+                "name": "date"
+            }, 
+            {
+                "display": "Sonda di temperatura 1", 
+                "value": "none", 
+                "name": "temp1"
+            }, 
+            {
+                "display": "Sonda di temperatura 2", 
+                "value": "none", 
+                "name": "temp2"
+            }, 
+            {
+                "display": "Temperatura di Set Point", 
+                "value": "none", 
+                "name": "setpoint"
+            }
+        ], 
+        "name": "graph"
+    }
+]

@@ -35,7 +35,7 @@ print("""
 
 form=cgi.FieldStorage()
 
-Error = "No"	# Serve per il calcolo/verifica di errore
+Error = ""	# Serve per il calcolo/verifica di errore
 for j in range(len(DaysSetPoints)):
 	for k in range(len(DaysSetPoints[j]["hours"])):
 		StrName = str(DaysSetPoints[j]["day"])+str(k)
@@ -50,7 +50,7 @@ for j in range(len(DaysSetPoints)):
 
 # Se non c'e` stato nessun errore, test e` uguale alla lunghezza
 # dei dati prodotti e posso sovrascrivere il file
-if Error == "No":
+if Error == "":
 	with open('dayssetpointarray.json', 'w') as outfile:
 		# Stampo a video la matrice se viene validata e inserita
 		print("""
@@ -61,28 +61,6 @@ if Error == "No":
 		""")
 		print(DaysSetPoints)
 		json.dump(DaysSetPoints, outfile, indent=4)
-
-"""
---------------------------------------------------
-
-# Per tutta la lunghezza/voci contenute nell'array .. (3)
-for j in range(len(DaysSetPoints)):
-	for i in range(len(SetPoints)):
-		print("<tr><td>",SetPoints[i]["display"],": </td>")
-		# Per tutta la lunghezza/voci contenute nell'array .. giorni/ore
-		for k in range(len(DaysSetPoints[j]["hours"])):
-			# Concatenamento 
-			print("<td><input type=\"radio\" name=\"",,"\" value=\"",SetPoints[i]["name"],"\"> </td>")
-	print("</tr>")
-	print("<tr><td>")
-	print("<b>",DaysSetPoints[j]["day"],"</b><hr></br>")
-	print("<td></tr>")
-
-
-print("<td><input type=\"submit\" value=\"Submit\"></td>")
-print("</table>")
-print("</form>")	# END form
-"""
 
 # End body/End html
 print("""

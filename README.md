@@ -15,7 +15,9 @@ una centralina facente parte di un'impianto domotico .. ecc.ecc. ..
 == Istruzioni ==
 
 Per il test dell'intefaccia web non serve il collegamento della sonda di temperatura,
-c\'e\` gia\` un "temperature.csv" che contiene alcuni dati.
+c\'e` gia` un "temperature.csv" che contiene alcuni dati.
+
+Per funzionare occorre scaricare il file: http://dygraphs.com/1.0.1/dygraph-combined.js
 
 Eseguite il webserver col comando:
 

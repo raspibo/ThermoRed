@@ -55,7 +55,7 @@ Ora=time.strftime("%H", time.localtime())
 if Giorno == "0":
 	CalcoloGiorno="6"
 else:
-	CalcoloGiorno=Giorno-1
+	CalcoloGiorno=int(Giorno)-1
 
 # Puntatore giorno, ore, ora, temperatura
 # nel file json
