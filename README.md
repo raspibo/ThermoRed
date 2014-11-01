@@ -31,17 +31,23 @@ ogni responsabilita`, lo fate a vostro rischio e pericolo ;) ).
 #### Istruzioni parte 2
 
 Ho creato uno stupido script "aggiungitemperatura.sh":
-`#!/bin/bash
+```
+#!/bin/bash
 
-python3 temperaturewrite3.py`
+python3 temperaturewrite3.py
+```
 
 Poi ho aggiunto questa riga nel crontab (comando: "crontab -e"):
+
 `*/20 * * * * /home/pi/git/ThermoRed/aggiungitemperatura.sh &>> ~/error.log`
 
 
 Quel che eseguo dopo ogni avvio:
+
 `cd /home/pi/git/ThermoRed`
+
 `sudo bash load1wire.sh`
+
 `python3 python3webserver.py &`
 
 Ora e` sufficiente collegari col browser alla porta 8080 del raspberry
