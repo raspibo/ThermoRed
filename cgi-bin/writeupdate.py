@@ -73,6 +73,9 @@ else:
 		if "minutecycle" == (ConfigFile[i]["name"]):
 			# Una volta trovato ..
 			ConfigFile[i]["value"] = cgi.escape(form[ConfigFile[i]["name"]].value)
+		if "minutegraph" == (ConfigFile[i]["name"]):
+			# Una volta trovato ..
+			ConfigFile[i]["value"] = cgi.escape(form[ConfigFile[i]["name"]].value)
 
 # Se non c'e` stato nessun errore, apro e scrivo il file
 if Error == "":

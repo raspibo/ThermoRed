@@ -54,7 +54,14 @@ print("""
 <h2>Configurazione GPIO "utili" del Raspberry Pi</h2>
 <p><b>ATTENZIONE</b>:</p>
 <p>Al momento sono previsti i pin della sola versione "B" e non legati ad altre funzionalita` (almeno spero ;))</p>
-<p><b>Inserisci i numeri della GPIO separati da una virgola ","</b></p>
+<p><b>Inserisci i numeri pin della board separati da una virgola ","</b></p>
+<p>Nota:<br/>
+Il programma utilizzera` la modalita` GPIO.BOARD, che utilizza il "connettore pin numero",
+per esempio, per usare il GPIO22 si deve specificare il pin 15: GPIO.setup(15, GPIO.OUT)
+</p>
+<p>
+<a href="http://elinux.org/RPi_Low-level_peripherals" target="_blank">http://elinux.org/RPi_Low-level_peripherals</a>
+</p>
 <br/>
 <br/>
 """)

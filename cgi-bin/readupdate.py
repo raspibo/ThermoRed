@@ -71,6 +71,10 @@ for i in range(len(ConfigFile)):
 	if "minutecycle" == (ConfigFile[i]["name"]):
 		# Inizio impostazioni form
 		print("<tr><td>",ConfigFile[i]["display"],":</td><td><input type=\"number\" name=\"",ConfigFile[i]["name"],"\" value=\"",ConfigFile[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required><br/></td></tr>", sep="")
+	if "minutegraph" == (ConfigFile[i]["name"]):
+		# Inizio impostazioni form
+		print("<tr><td>",ConfigFile[i]["display"],":</td><td><input type=\"number\" name=\"",ConfigFile[i]["name"],"\" value=\"",ConfigFile[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required><br/></td></tr>", sep="")
+
 
 
 print("<td></td><td><input type=\"submit\" value=\"Submit\"></td>")
