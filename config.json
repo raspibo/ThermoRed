@@ -5,6 +5,16 @@
         "name": "thermored"
     }, 
     {
+        "display": "On Manual Off (on/man/off)", 
+        "value": "on", 
+        "name": "on"
+    }, 
+    {
+        "display": "Temperatura in manuale", 
+        "value": "18", 
+        "name": "manual"
+    }, 
+    {
         "display": "Accensione impianto", 
         "value": "23", 
         "name": "plant"
@@ -52,30 +62,30 @@
     }, 
     {
         "display": "Frequenza di aggiornamento in minuti", 
-        "value": "25", 
+        "value": "20", 
         "name": "minutecycle"
     }, 
     {
         "display": "Grafico temperature", 
         "value": [
             {
-                "display": "Data e ora", 
-                "value": "datadilettura", 
+                "display": "Data", 
+                "value": "var", 
                 "name": "date"
             }, 
             {
-                "display": "Sonda di temperatura 1", 
-                "value": "none", 
+                "display": "Sonda di temperatura", 
+                "value": "var", 
                 "name": "temp1"
             }, 
             {
-                "display": "Sonda di temperatura 2", 
-                "value": "none", 
-                "name": "temp2"
+                "display": "Nessuna sonda", 
+                "value": "var", 
+                "name": "temp2null"
             }, 
             {
                 "display": "Temperatura di Set Point", 
-                "value": "none", 
+                "value": "var", 
                 "name": "setpoint"
             }
         ], 

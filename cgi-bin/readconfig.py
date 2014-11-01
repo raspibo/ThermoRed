@@ -52,7 +52,7 @@ if Error != "":
 	print("<h1>",Error,"</h1><br/>")
 
 print("""
-<h2>Configurazione di che cosa ?</h2>
+<h2>Visualizza file di configurazione "config.json"</h2>
 <p><b>ATTENZIONE</b>:</p>
 <p>Questa pagina prende in input il file di configurazione json, non e` possibile effettuare modifiche, e` bloccata, per ovvi motivi</p>
 <br/>
@@ -70,7 +70,7 @@ print("<table>")
 for j in range(len(ConfigFile)):
 	print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",j,"\" value=\"",ConfigFile[j]["display"],"\" size=\"40\" </td></tr>", sep="")
 	print("<tr><td>Nome identificativo:</td><td><input type=\"text\" name=\"name",j,"\" value=\"",ConfigFile[j]["name"],"\" size=\"20\" </td></tr>", sep="")
-	print("<tr><td>Valore:</td><td><input type=\"text\" name=\"filename",j,"\" value=\"",ConfigFile[j]["value"],"\" size=\"100\" </td></tr>", sep="")
+	print("<tr><td>Valore:</td><td><input type=\"text\" name=\"filename",j,"\" value=\"",ConfigFile[j]["value"],"\" size=\"75\" </td></tr>", sep="")
 	print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
 
 
