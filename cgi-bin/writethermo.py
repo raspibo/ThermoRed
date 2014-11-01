@@ -26,12 +26,6 @@ if os.path.exists("config.json"):
 else:
 	Error = "Si e\` verificato un\'errore, non trovo il file \"config.json\""
 
-# Directory dei device 1 wire
-for i in range(len(ConfigFile)):
-	if "dir1w" == (ConfigFile[i]["name"]):
-		# Appoggio a variabile
-		Dir1wire = ConfigFile[i]["value"]
-
 
 # Intestazione HTML
 print("<!DOCTYPE html>")
@@ -58,59 +52,28 @@ if Error != "":
 	print("<h1>",Error,"</h1><br/>")
 
 print("""
-<h2>Configurazione sensori temperatura</h2>
-<p><b>ATTENZIONE</b>: Devo ancora scrivere l'help/guida</p>
-<p>???</p>
+<h2>Configurazione sensore termostato</h2>
+<p>E` quello utilizzato per determinare l'accensione e spegnimento del riscaldamento durante le funzioni automatiche.</p>
+<p><b>ATTENZIONE</b>:</p>
+<p>  </p>
 <br/>
 <br/>
 """)
 
-# Stampo sulla pagina web il listato della directory dei sensori 1wire
-# teoricamente e` da togliere sempre l'ultimo risultato,
-# suggerisco di lasciarlo visibile, tanto non dovrebbe infastidire.
-print("<h3>Lista dei sensori configurati</h3>")
-print("<p></p><br/>")
-
-print("<p><hr/></p><br/>")	# Stampa un linea orizzontale
-
-# Cerco i sensori nel file json
-for i in range(len(ConfigFile)):
-	if "sensori" == (ConfigFile[i]["name"]):
-		# Appoggio a variabile l'array
-		SensoriArray = ConfigFile[i]["value"]
 
 form=cgi.FieldStorage()
 
 Error = ""	# Serve per il calcolo/verifica di errore
-# Come cazzo la spiego ?
-for j in range(len(SensoriArray)):
-	DisplayN = "display"+str(j)
-	if DisplayN not in form:
-		print("<br/>Errore:", DisplayN)
-		Error = DisplayN
-	else:
-		SensoriArray[j]["display"] = cgi.escape(form[DisplayN].value)
-	NameN = "name"+str(j)
-	if NameN not in form:
-		print("<br/>Errore:", NameN)
-		Error = NameN
-	else:
-		SensoriArray[j]["name"] = cgi.escape(form[NameN].value)
-	FilenameN = "filename"+str(j)
-	if FilenameN not in form:
-		print("<br/>Errore:", FilenameN)
-		Error = FilenameN
-	else:
-		if os.path.exists(str(Dir1wire)+str(cgi.escape(form[FilenameN].value))):
-			SensoriArray[j]["filename"] = cgi.escape(form[FilenameN].value)
-		else:
-			Error = cgi.escape(form[FilenameN].value)+"- NON ESISTE"
-
-# Cerco i sensori nel file json, ma stavolta per fare il contrario, scriverli
-for i in range(len(ConfigFile)):
-	if "sensori" == (ConfigFile[i]["name"]):
-		# Appoggio a variabile l'array
-		ConfigFile[i]["value"] = SensoriArray
+# 
+if "termostato" not in form:
+	print("<br/>Errore: non hai inserito nessun dato?")
+	Error = "Non hai inserito nessun dato"
+else:
+	# Cerco il termostato nel file config.json
+	for i in range(len(ConfigFile)):
+		if "termostato" == (ConfigFile[i]["name"]):
+			# Una volta trovato ..
+			ConfigFile[i]["value"] = form["termostato"].value
 
 # Se non c'e` stato nessun errore, apro e scrivo il file
 if Error == "":
@@ -122,7 +85,6 @@ if Error == "":
 			<br/>
 			<p>Questo e` il risultato dell'inserimento:</p>
 		""")
-		print(SensoriArray)
 		print(ConfigFile)
 		json.dump(ConfigFile, outfile, indent=4)
 else:

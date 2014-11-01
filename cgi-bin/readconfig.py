@@ -26,12 +26,6 @@ if os.path.exists("config.json"):
 else:
 	Error = "Si e\` verificato un\'errore, non trovo il file \"config.json\""
 
-# Directory dei device 1 wire
-for i in range(len(ConfigFile)):
-	if "dir1w" == (ConfigFile[i]["name"]):
-		# Appoggio a variabile
-		Dir1wire = os.listdir(ConfigFile[i]["value"])
-
 
 # Intestazione HTML
 print("<!DOCTYPE html>")
@@ -58,46 +52,31 @@ if Error != "":
 	print("<h1>",Error,"</h1><br/>")
 
 print("""
-<h2>Configurazione sensori temperatura</h2>
+<h2>Configurazione di che cosa ?</h2>
 <p><b>ATTENZIONE</b>:</p>
-<p>Meglio non utilizzare caratteri speciali, sembra impediscano la visualizzazione in alcuni casi
-(non ho provato se si tratta solo di un difetto di visualizzazione o se e` un problema, opterei per il fatto che sia anche un problema)</p>
+<p>Questa pagina prende in input il file di configurazione json, non e` possibile effettuare modifiche, e` bloccata, per ovvi motivi</p>
 <br/>
 <br/>
 """)
 
-# Stampo sulla pagina web il listato della directory dei sensori 1wire
-# teoricamente e` da togliere sempre l'ultimo risultato,
-# suggerisco di lasciarlo visibile, tanto non dovrebbe infastidire.
-print("<h3>Lista dei sensori trovati</h3>")
-print("<p>L'ultimo valore non e` un sensore</p><br/>")
-for i in range(len(Dir1wire)):
-	print(Dir1wire[i],"<br/>")
-
 print("<p><hr/></p><br/>")	# Stampa un linea orizzontale
-
-# Cerco i sensori nel file json
-for i in range(len(ConfigFile)):
-	if "sensori" == (ConfigFile[i]["name"]):
-		# Appoggio a variabile l'array
-		SensoriArray = ConfigFile[i]["value"]
 
 # Start FORM input
 # writesensors.py
-print("<form action=\"/cgi-bin/writesensors.py\" method=\"post\">")
+print("<form action=\"/cgi-bin/writejson.py\" method=\"post\">")
 print("<table>")
 
-# Per tutti i sensori presenti
-for j in range(len(SensoriArray)):
-	print("<tr><td>Descrizione del sensore:</td><td><input type=\"text\" name=\"display",j,"\" value=\"",SensoriArray[j]["display"],"\" size=\"40\" </td></tr>", sep="")
-	print("<tr><td>Identificativo:</td><td><input type=\"text\" name=\"name",j,"\" value=\"",SensoriArray[j]["name"],"\" size=\"40\" </td></tr>", sep="")
-	print("<tr><td>Filename:</td><td><input type=\"text\" name=\"filename",j,"\" value=\"",SensoriArray[j]["filename"],"\" size=\"40\" </td></tr>", sep="")
+# Per tutte le voci presenti ..
+for j in range(len(ConfigFile)):
+	print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",j,"\" value=\"",ConfigFile[j]["display"],"\" size=\"40\" </td></tr>", sep="")
+	print("<tr><td>Nome identificativo:</td><td><input type=\"text\" name=\"name",j,"\" value=\"",ConfigFile[j]["name"],"\" size=\"20\" </td></tr>", sep="")
+	print("<tr><td>Valore:</td><td><input type=\"text\" name=\"filename",j,"\" value=\"",ConfigFile[j]["value"],"\" size=\"100\" </td></tr>", sep="")
 	print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
 
 
 print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Solita linea di separazione (forse si potrebbe farne a meno)
 print("<tr>")
-print("<td></td><td><input type=\"submit\" value=\"Submit\"></td>")
+#print("<td></td><td><input type=\"submit\" value=\"Submit\"></td>")
 print("</tr>")
 print("</table>")
 print("</form>")	# END form
