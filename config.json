@@ -6,7 +6,7 @@
     }, 
     {
         "display": "On Manual Off (on/man/off)", 
-        "value": "on", 
+        "value": "man", 
         "name": "on"
     }, 
     {
@@ -16,12 +16,12 @@
     }, 
     {
         "display": "Accensione impianto", 
-        "value": "23", 
+        "value": "24", 
         "name": "plant"
     }, 
     {
         "display": "Abilitazione riscaldamento (interruttore)", 
-        "value": "22", 
+        "value": "23", 
         "name": "enable"
     }, 
     {
@@ -33,14 +33,14 @@
         "display": "Sensori di temperatura", 
         "value": [
             {
+                "filename": "10-0008029444b6", 
                 "display": "Sonda di temperatura", 
-                "name": "temp1", 
-                "filename": "10-0008029444b6"
+                "name": "temp1"
             }, 
             {
+                "filename": "10-0008029444b6", 
                 "display": "Nessuna sonda", 
-                "name": "temp2null", 
-                "filename": "10-0008029444b6"
+                "name": "temp2null"
             }
         ], 
         "name": "sensori"

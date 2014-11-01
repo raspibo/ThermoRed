@@ -54,8 +54,12 @@ print("""
 <h2>Configurazione uscite</h2>
 <p>Sono quelle della GPIO utilizzate dal Raspberry Pi</p>
 <p><b>ATTENZIONE</b>: Verificare il tipo di Raspberry Pi in uso</p>
-<p>La presente selezione e` (dovrebbe) standardizzata per il tipo "B" (no "A" e no "B+"</p>
+<p>La presente selezione e` (dovrebbe) standardizzata per il tipo "B" (no "A" e no "B+")</p>
 <p>Ho previsto i soli valori dei GPIO "liberi" (che non hanno altre funzioni)</p>
+<p>Al momento ho messo e usato i valori della GPIO, poi valuteremo se meglio segnare il pin.
+Anche un'altra cosa, quella "ricorsione" per la ricerca dell'errore, da vedere se si riesce
+a farla piu` pulita, e` che non volevo usare una funzione, ma forse per questo caso e`
+meglio.</p>
 <br/>
 <br/>
 """)

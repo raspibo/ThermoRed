@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Questo file legge il file di configurazione,
-# trova e modifica il parametro eseguando il "writeconfig.py"
+# trova e modifica il parametro eseguando il "xxx.py"
 
 # Serve per controllare i files
 import os
@@ -52,8 +52,7 @@ if Error != "":
 	print("<h1>",Error,"</h1><br/>")
 
 print("""
-<h2>Configurazione sensore termostato</h2>
-<p>E` quello utilizzato per determinare l'accensione e spegnimento del riscaldamento durante le funzioni automatiche.</p>
+<h2>Configurazione funzionamento</h2>
 <p><b>ATTENZIONE</b>:</p>
 <p>  </p>
 <br/>
@@ -65,52 +64,15 @@ form=cgi.FieldStorage()
 
 Error = ""	# Serve per il calcolo/verifica di errore
 # 
-if "outgpio" not in form:
-	print("<br/>Errore: non hai inserito nessun dato?")
-	Error = "Non hai inserito nessun dato"
+if "on" not in form:
+	print("<br/>Errore: non hai inserito nessun dato ?")
+	Error = "Non hai inserito nessun dato ?"
 else:
-	# Cerco nel file config.json
+	# Ricerca ...
 	for i in range(len(ConfigFile)):
-		if "outgpio" == (ConfigFile[i]["name"]):
+		if "on" == (ConfigFile[i]["name"]):
 			# Una volta trovato ..
-			ConfigFile[i]["value"] = form["outgpio"].value
-
-if "enable" not in form:
-	print("<br/>Errore: non hai inserito nessun dato?")
-	Error = "Non hai inserito nessun dato"
-else:
-	# Cerco nel file config.json
-	for i in range(len(ConfigFile)):
-		if "enable" == (ConfigFile[i]["name"]):
-			# Una volta trovato ..
-			ConfigFile[i]["value"] = form["enable"].value
-
-if "plant" not in form:
-	print("<br/>Errore: non hai inserito nessun dato?")
-	Error = "Non hai inserito nessun dato"
-else:
-	# Cerco nel file config.json
-	for i in range(len(ConfigFile)):
-		if "plant" == (ConfigFile[i]["name"]):
-			# Una volta trovato ..
-			ConfigFile[i]["value"] = form["plant"].value
-
-for i in range(len(ConfigFile)):
-	if "outgpio" == (ConfigFile[i]["name"]):
-		for j in range(len(ConfigFile)):
-			if "enable" == (ConfigFile[j]["name"]):
-				if ConfigFile[i]["value"] == ConfigFile[j]["value"]:
-					Error = "Ci sono due valori uguali, non posso accettare l'input"
-				else:
-					for k in range(len(ConfigFile)):
-						if "plant" == (ConfigFile[k]["name"]):
-							if ConfigFile[i]["value"] == ConfigFile[k]["value"]:
-								Error = "Ci sono due valori uguali, non posso accettare l'input"
-							elif ConfigFile[j]["value"] == ConfigFile[k]["value"]:
-								Error = "Ci sono due valori uguali, non posso accettare l'input"
-							else:
-								Error = ""
-
+			ConfigFile[i]["value"] = form["on"].value
 
 # Se non c'e` stato nessun errore, apro e scrivo il file
 if Error == "":
