@@ -38,11 +38,11 @@ sudo bash load1wire.sh
 python3 python3webserver.py &
 ```
 
-Ora e` sufficiente collegari col browser alla porta 8080 del raspberry
+Ora e\` sufficiente collegari col browser alla porta 8080 del raspberry
 (da qualsiasi postazione in rete).
 
-Per eseguire il programma vero e proprio (prove hardware in corso), e`
-necessario essere "root", perche` e` inserita la gestione dell'uscita
+Per eseguire il programma vero e proprio (prove hardware in corso), e\`
+necessario essere "root", perche\` e\` inserita la gestione dell'uscita
 GPIO del Raspberry Pi:
 
 `sudo python3 startred.py`

@@ -266,8 +266,10 @@ def CalcolaTemperature():
 	return TemperaturaTermostato,SetPoint
 
 #### PROGRAMMA
-# Ho aggiunto try+except per pulire la GPIO quanto interrompo con CTRL+C
+# Ho aggiunto try+except per pulire la GPIO quando interrompo con CTRL+C
 TemperaturePID = CalcolaTemperature()	# Calcola le temperature per il PID ed aggiorna temperature.csv
+# time.time() restituisce il tempo attuale in secondi (perche` uso int), servira`
+# per calcolare il tempo passato per differenza, vedi "se tempoattuale - tempoinizio > tempociclo"
 TempoInizio= [int(time.time()),int(time.time())]	# TempiInizio, sono uguali ;)
 # TempiCiclo[0] = ciclo, [1] = grafico | Secondi
 TempiCiclo = CalcolaTempiCiclo()
