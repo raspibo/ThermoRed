@@ -23,6 +23,7 @@ e` tutto da vedere
 - Conviene mettere tutte le variabili in gruppo, o conviene singole ?
 	Per semplicita` mi suggerisco singole ;)
 
+###
 Ho spostato il ricalcolo dei tempi di ciclo dopo le operazioni,
 cioe` ogni volta che vene azzerato un calcolo tempo.
 Nel mezzo del while true veniva eseguito troppo spesso e modificando
@@ -32,6 +33,12 @@ Risolvere il problem facendo "ricalcolare" le variabili solo al
 cambio files di configurazione o su esplicito comando operatore.
 Poi servira` anche un controllo che lo script e` in funzione e
 magari qualcosa per poterlo riavviare.
+
+### Forse risolto il problema col "try"
+### No. C'e` qualcos'altro.
+### Messo una pezza col except ValueErrore e ritenta ..
+
+
 
 """
 
@@ -45,37 +52,25 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 
 
-
-## Probabilmente questi file saranno da leggere in una funzione
-# Provo a lasciarli qua, separati
-#if os.path.exists("config.json"):
-#	with open("config.json") as JsonFileConfig:
-#		ConfigFile = json.load(JsonFileConfig)
-#else:
-#	print ("Errore, manca il file \"config.json\"")
-
-#if os.path.exists("setpointarray.json"):
-#	with open("setpointarray.json") as JsonFileSetPoints:
-#		SetPoints = json.load(JsonFileSetPoints)
-#else:
-#	print ("Errore, manca il file \"setpointarray.json\"")
-
-#if os.path.exists("dayssetpointarray.json"):
-#	with open("dayssetpointarray.json") as JsonFileDays:
-#		DaysSetPoints = json.load(JsonFileDays)
-#else:
-#	print ("Errore, manca il file \"daysetpointarray.json\"")
-
-#if os.path.exists("temperature.csv"):
-#	FileTempsCSV = open("temperature.csv","a")
-#else:
-#	print ("Errore, manca il file \"temperature.csv\"")
-
+# Funzione che calcola i tempi ciclo (comando) e grafico (lettura)
+# [0] e` il ciclo, da usare per creazione PID temperatura
+# [1] e` il grafico, da usare per generazione dei valori (file temperature.csv)
 def CalcolaTempiCiclo():
 	if os.path.exists("config.json"):
-		with open("config.json") as JsonFileConfig:
-			ConfigFile = json.load(JsonFileConfig)
-			JsonFileConfig.close()
+		try:
+			with open("config.json") as JsonFileConfig:
+				ConfigFile = json.load(JsonFileConfig)
+				JsonFileConfig.close()
+		except IOError:
+			print ("Errore di I/O \"config.json\"")
+		except ValueError:
+			print ("Errore dati \"config.json\", ritento ..")
+			time.sleep(5)
+			with open("config.json") as JsonFileConfig:
+				ConfigFile = json.load(JsonFileConfig)
+				JsonFileConfig.close()
+		else:
+			print("Read \"config.json\"")
 	else:
 		print ("Errore, manca il file \"config.json\"")
 	
@@ -88,11 +83,24 @@ def CalcolaTempiCiclo():
 			TempoGraph = int(ConfigFile[i]["value"])*60	# Trasformo subito in secondi
 	return TempoCiclo,TempoGraph
 
+# Cerca l'uscita da comandare nel file di configurazione, l'ho chiamata "termostato"
+# perche` fa` la funzione di termostato, nel progemma e` "outgpio"
 def CalcolaUscitaTermostato():
 	if os.path.exists("config.json"):
-		with open("config.json") as JsonFileConfig:
-			ConfigFile = json.load(JsonFileConfig)
-			JsonFileConfig.close()
+		try:
+			with open("config.json") as JsonFileConfig:
+				ConfigFile = json.load(JsonFileConfig)
+				JsonFileConfig.close()
+		except IOError:
+			print ("Errore di I/O \"config.json\"")
+		except ValueError:
+			print ("Errore dati \"config.json\", ritento ..")
+			time.sleep(5)
+			with open("config.json") as JsonFileConfig:
+				ConfigFile = json.load(JsonFileConfig)
+				JsonFileConfig.close()
+		else:
+			print("Read \"config.json\"")
 	else:
 		print ("Errore, manca il file \"config.json\"")
 	
@@ -102,26 +110,64 @@ def CalcolaUscitaTermostato():
 			UscitaTermostato = int(ConfigFile[i]["value"])	# Trasformo in tero
 			return UscitaTermostato
 
+# Calcola e genera il file "temperature.csv"
+# Restituisce i valori:
+# [0] Temperatura letta dalla sonda termostato di riferimento
+# [1] Set point della temperatura richiesto
+# Questi valori sono da utilizzarsi per la generazione PID
 def CalcolaTemperature():
 	### TEMPERATURE.CSV
 	if os.path.exists("config.json"):
-		with open("config.json") as JsonFileConfig:
-			ConfigFile = json.load(JsonFileConfig)
-			JsonFileConfig.close()
+		try:
+			with open("config.json") as JsonFileConfig:
+				ConfigFile = json.load(JsonFileConfig)
+				JsonFileConfig.close()
+		except IOError:
+			print ("Errore di I/O \"config.json\"")
+		except ValueError:
+			print ("Errore dati \"config.json\", ritento ..")
+			time.sleep(5)
+			with open("config.json") as JsonFileConfig:
+				ConfigFile = json.load(JsonFileConfig)
+				JsonFileConfig.close()
+		else:
+			print("Read \"config.json\"")
 	else:
 		print ("Errore, manca il file \"config.json\"")
 	
 	if os.path.exists("setpointarray.json"):
-		with open("setpointarray.json") as JsonFileSetPoints:
-			SetPoints = json.load(JsonFileSetPoints)
-			JsonFileSetPoints.close()
+		try:
+			with open("setpointarray.json") as JsonFileSetPoints:
+				SetPoints = json.load(JsonFileSetPoints)
+				JsonFileSetPoints.close()
+		except IOError:
+			print ("Errore di I/O \"setpointarray.json\"")
+		except ValueError:
+			print ("Errore dati \"setpointarray.json\", ritento ..")
+			time.sleep(5)
+			with open("setpointarray.json") as JsonFileSetPoints:
+				SetPoints = json.load(JsonFileSetPoints)
+				JsonFileSetPoints.close()
+		else:
+			print("Read \"setpointarray.json\"")
 	else:
 		print ("Errore, manca il file \"setpointarray.json\"")
 	
 	if os.path.exists("dayssetpointarray.json"):
-		with open("dayssetpointarray.json") as JsonFileDays:
-			DaysSetPoints = json.load(JsonFileDays)
-			JsonFileDays.close()
+		try:
+			with open("dayssetpointarray.json") as JsonFileDays:
+				DaysSetPoints = json.load(JsonFileDays)
+				JsonFileDays.close()
+		except IOError:
+			print ("Errore di I/O \"dayssetpoinarray.json\"")
+		except ValueError:
+			print ("Errore dati \"daysetpointarray.json\", ritento ..")
+			time.sleep(5)
+			with open("dayssetpointarray.json") as JsonFileDays:
+				DaysSetPoints = json.load(JsonFileDays)
+				JsonFileDays.close()
+		else:
+			print("Read \"dayssetpoinarray.json\"")
 	else:
 		print ("Errore, manca il file \"daysetpointarray.json\"")
 	if os.path.exists("temperature.csv"):
@@ -227,6 +273,7 @@ TempoInizio= [int(time.time()),int(time.time())]	# TempiInizio, sono uguali ;)
 TempiCiclo = CalcolaTempiCiclo()
 try:
 	while True:
+		
 		if int(time.time())-TempoInizio[0] > TempiCiclo[0]:
 			# Set uscite termostato per comando
 			UscitaTermostato = CalcolaUscitaTermostato()

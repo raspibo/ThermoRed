@@ -62,7 +62,7 @@
     }, 
     {
         "display": "Frequenza di controllo PID (minuti)", 
-        "value": "3", 
+        "value": "4", 
         "name": "minutecycle"
     }, 
     {

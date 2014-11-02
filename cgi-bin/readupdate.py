@@ -52,7 +52,7 @@ if Error != "":
 
 print("""
 <h2>Configurazione frequenza di update</h2>
-<p>E` la frequenza (in minuti) con cui sidevono aggiornare e verificare i dati e comandare le uscite</p>
+<p>E` la frequenza (in minuti) con cui si devono aggiornare e verificare i dati e comandare le uscite</p>
 <p><b>ATTENZIONE</b>: a cosa ?</p>
 <br/>
 <br/>
