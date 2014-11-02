@@ -28,27 +28,21 @@ attive solo le voci di menu funzionanti, non potete sbagliare (comunque declino
 ogni responsabilita`, lo fate a vostro rischio e pericolo ;) ).
 
 
-#### Istruzioni parte 2
+#### Istruzioni "fase prove hardware"
 
-Ho creato uno stupido script "aggiungitemperatura.sh":
+Eseguire all'avvio del sistema:
+
 ```
-#!/bin/bash
-
-python3 temperaturewrite3.py
+cd /home/pi/git/ThermoRed
+sudo bash load1wire.sh
+python3 python3webserver.py &
 ```
-
-Poi ho aggiunto questa riga nel crontab (comando: "crontab -e"):
-
-`*/20 * * * * /home/pi/git/ThermoRed/aggiungitemperatura.sh &>> ~/error.log`
-
-
-Quel che eseguo dopo ogni avvio:
-
-`cd /home/pi/git/ThermoRed`
-
-`sudo bash load1wire.sh`
-
-`python3 python3webserver.py &`
 
 Ora e` sufficiente collegari col browser alla porta 8080 del raspberry
 (da qualsiasi postazione in rete).
+
+Per eseguire il programma vero e proprio (prove hardware in corso), e`
+necessario essere "root", perche` e` inserita la gestione dell'uscita
+GPIO del Raspberry Pi:
+
+`sudo python3 startred.py`
