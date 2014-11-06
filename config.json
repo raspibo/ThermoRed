@@ -38,16 +38,16 @@
                 "filename": "10-0008029444b6"
             }, 
             {
-                "display": "Nessuna sonda", 
-                "name": "temp2null", 
-                "filename": "10-0008029444b6"
+                "display": "Sonda waterproof", 
+                "name": "temp2w", 
+                "filename": "28-000004e199ad"
             }
         ], 
         "name": "sensori"
     }, 
     {
         "display": "Sensore Termostato (di riferimento)", 
-        "value": "temp1", 
+        "value": "temp2w", 
         "name": "termostato"
     }, 
     {
@@ -62,7 +62,7 @@
     }, 
     {
         "display": "Frequenza di controllo PID (minuti)", 
-        "value": "4", 
+        "value": "5", 
         "name": "minutecycle"
     }, 
     {

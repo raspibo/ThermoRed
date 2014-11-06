@@ -69,10 +69,9 @@ print("""
 # Stampo sulla pagina web il listato della directory dei sensori 1wire
 # teoricamente e` da togliere sempre l'ultimo risultato,
 # suggerisco di lasciarlo visibile, tanto non dovrebbe infastidire.
-print("<h3>Lista dei sensori trovati</h3>")
-print("<p>L'ultimo valore non e` un sensore</p><br/>")
+print("<h3>Sensori trovati (e` un semplice listato della directory):</h3>")
 for i in range(len(Dir1wire)):
-	print(Dir1wire[i],"<br/>")
+	print("<ul><li>",Dir1wire[i],"</li></ul>")
 
 print("<p><hr/></p><br/>")	# Stampa un linea orizzontale
 
