@@ -51,6 +51,25 @@ import RPi.GPIO as GPIO
 # Per esempio, per usare il GPIO22 si deve specificare il pin 15: GPIO.setup(15, GPIO.OUT)
 GPIO.setmode(GPIO.BOARD)
 
+# Legge il file di configurazione
+# Provo a generalizzarla
+def ReadJsonFile(JsonFile):
+	if os.path.exists(JsonFile):
+		try:
+			with open(JsonFile) as JsonFileOpen:
+				JsonFileRead = json.load(JsonFileOpen)
+				JsonFileOpen.close()
+		except IOError:
+			print ("Errore di I/O in lettura", JsonFile)
+		except ValueError:
+			print ("Errore dati", JsonFile," ritento ..")
+			time.sleep(3)
+			JsonFileRead = ReadJsonFile(JsonFile)	# Richiama se stessa
+		else:
+			return JsonFileRead
+	else:
+		print ("Errore, manca il file \"config.json\"")
+
 
 # Funzione che calcola i tempi ciclo (comando) e grafico (lettura)
 # [0] e` il ciclo, da usare per creazione PID temperatura

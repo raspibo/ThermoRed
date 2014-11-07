@@ -16,26 +16,34 @@
 <center><A href="graph.html" target="2ndFrame" title="Grafico">Grafico temperature</A></center>
 
 <hr>
-    <p>
+
     <center><h3>Impostazioni</h3></center>
-    <A href="cgi-bin/readweektsp.py" target="2ndFrame" title="Day set temperature's">Day's Temperature (Set Point)</A></br>
-    <A href="cgi-bin/readtsp.py" target="2ndFrame" title="SetPoint temperature">Temperature (Set Point)</A></br>
-    <A href="cgi-bin/readonoff.py" target="2ndFrame" title="Function">Funzionamento (On/Man/Off)</A></br>
+    <A href="cgi-bin/readweektsp.py" target="2ndFrame" title="Week/Day's set temperature's">Programmazione</A></br>
+    <A href="cgi-bin/readtsp.py" target="2ndFrame" title="SetPoint temperature">Temperature</A></br>
+    <A href="cgi-bin/readonoff.py" target="2ndFrame" title="On/Off/Man">On/Off/Manuale</A></br>
     <center><h3>Configurazioni</h3></center>
-    <A href="cgi-bin/readgraph.py" target="2ndFrame" title="Configure graph">Configura il grafico</A></br>
-    <A href="cgi-bin/readpid.py" target="2ndFrame" title="Configure PID">Configura il PID</A></br>
-    <A href="cgi-bin/readupdate.py" target="2ndFrame" title="Configure update">Configura update</A></br>
-    <A href="cgi-bin/readoutgpio.py" target="2ndFrame" title="Configure GPIO outputs">Uscite di comando</A></br>
-    <A href="cgi-bin/readrpigpio.py" target="2ndFrame" title="Configure free GPIO">Uscite GPIO disponibili</A></br>
-    <A href="cgi-bin/readthermo.py" target="2ndFrame" title="Sensor PID">Sonda di riferimento PID</A></br>
+<ol>
+<li>
     <A href="cgi-bin/readsensors.py" target="2ndFrame" title="Temperature Sensors">Sonde di temperatura</A></br>
+</li>
+<li>
+    <A href="cgi-bin/readrpigpio.py" target="2ndFrame" title="Configure free GPIO">Uscite GPIO disponibili</A></br>
+</li>
+<li>
+    <A href="cgi-bin/readoutgpio.py" target="2ndFrame" title="Configure GPIO outputs">Uscite di comando</A></br>
+</li>
+<li>
+    <A href="cgi-bin/readpid.py" target="2ndFrame" title="Configure PID">Configura il PID</A></br>
+</li>
+<li>
+    <A href="cgi-bin/readgraph.py" target="2ndFrame" title="Configure graph">Configura il grafico</A></br>
+</li>
+</ol>
+
     <center><h3>Servizio</h3></center>
-<!--    <A href="cgi-bin/readconfig.py" target="2ndFrame" title="Read config.json">Visualizza config.json</A></br> -->
     <A href="config.json" target="2ndFrame" title="Read config.json">Visualizza config.json</A></br>
-    <A href="setpointarray.json" target="2ndFrame" title="Read setpointarrayjson">Visualizza setpointarray.json</A></br>
-    <A href="dayssetpointarray.json" target="2ndFrame" title="Read dayssetpointarrayjson">Visualizza dayssetpointarray.json</A></br>
+    <A href="weektsp.json" target="2ndFrame" title="Read weektsp">Visualizza weektsp.json</A></br>
     <A href="temperature.csv" target="2ndFrame" title="Read temperature.csv">Visualizza temperature.csv</A></br>
-    </p>
 
 
 </body>
