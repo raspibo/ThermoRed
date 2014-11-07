@@ -97,17 +97,29 @@ print("<table>")
 #for i in range(len(GraphArray)):
 #	# Concatenamento di variabili da SetPoins e pezzi di html
 #	print("<tr><td>",GraphArray[i]["display"],":</td><td><input type=\"number\" name=\"",GraphArray[i]["name"],"\" value=\"",GraphArray[i]["value"],"\" min=\"5\" max=\"30\" maxlength=\"2\" size=\"2\" required><br/></td></tr>", sep="")
-for i in range(len(ConfigFile)):
-	if "minutegraph" == (ConfigFile[i]["name"]):
-		print("<tr><td>",ConfigFile[i]["display"],":</td><td><input type=\"number\" name=\"",ConfigFile[i]["name"],"\" value=\"",ConfigFile[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required><br/></td></tr>", sep="")
+#for i in range(len(ConfigFile)):
+#	if "minutegraph" == (ConfigFile[i]["name"]):
+#		print("<tr><td>",ConfigFile[i]["display"],":</td><td><input type=\"number\" name=\"",ConfigFile[i]["name"],"\" value=\"",ConfigFile[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required><br/></td></tr>", sep="")
 
-print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
+#print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
 
 for i in range(len(GraphArray)):
-	print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",GraphArray[i]["display"],"\" size=\"40\" required></td></tr>", sep="")
-	if "fixed" == GraphArray[i]["value"]:
-		print("<tr><td>Valore:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" disabled></td></tr>", sep="")
+	if "minutegraph" == GraphArray[i]["name"]:
+		Disable = "readonly"
 	else:
+		Disable = ""
+	print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",GraphArray[i]["display"],"\" size=\"40\" required ",Disable,"></td></tr>", sep="")
+	#print("<tr><td>Identificazione:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" required ",Disable,"></td></tr>", sep="")
+	#print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" required ",Disable,"></td></tr>", sep="")
+	if "fixed" == GraphArray[i]["value"]:
+		print("<tr><td>Nome:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" readonly></td></tr>", sep="")
+		print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" readonly></td></tr>", sep="")
+	elif Disable != "":
+		print("<tr><td>Nome:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" readonly></td></tr>", sep="")
+		print("<tr><td>Valore:</td><td><input type=\"number\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required></td></tr>", sep="")
+	else:
+		print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" readonly></td></tr>", sep="")
+		#print("<tr><td>Valore:</td><td><input type=\"number\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" readonly></td></tr>", sep="")
 		print("<tr><td>Nome:</td><td><select name=\"name",i,"\">", sep="")
 		for j in range(len(SensoriArray)):
 			if SensoriArray[j]["name"] == GraphArray[i]["name"]:
@@ -117,9 +129,9 @@ for i in range(len(GraphArray)):
 			print("<option value=\"",SensoriArray[j]["name"],"\"",Selected,">",SensoriArray[j]["name"],"</option>", sep="")
 			#print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" disabled></td></tr>", sep="")
 	print("</select></td></tr>")
+	print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
 
-
-print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
+#print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
 
 
 

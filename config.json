@@ -45,12 +45,12 @@
         "value": [
             {
                 "display": "Sonda di temperatura", 
-                "value": "10-0008029444b6", 
+                "value": "28-000004e199ad", 
                 "name": "temp1"
             }, 
             {
                 "display": "Sonda waterproof", 
-                "value": "28-000004e199ad", 
+                "value": "10-0008029444b6", 
                 "name": "temp2w"
             }
         ], 
@@ -109,27 +109,27 @@
         "name": "pid"
     }, 
     {
-        "display": "Frequenza di aggiornamento grafico", 
-        "value": 2, 
-        "name": "minutegraph"
-    }, 
-    {
         "display": "Grafico temperature", 
         "value": [
+            {
+                "display": "Frequenza di aggiornamento", 
+                "value": "5", 
+                "name": "minutegraph"
+            }, 
             {
                 "display": "Data", 
                 "value": "fixed", 
                 "name": "date"
             }, 
             {
-                "display": "Sonda di temperatura", 
+                "display": "Sonda di temperatura 1", 
                 "value": "var", 
-                "name": "temp1"
+                "name": "temp2w"
             }, 
             {
-                "display": "Nessuna sonda", 
+                "display": "Sonda 2", 
                 "value": "var", 
-                "name": "temp2null"
+                "name": "temp1"
             }, 
             {
                 "display": "Temperatura di Set Point", 

@@ -80,6 +80,7 @@ for i in range(len(ConfigFile)):
 	if "sensori" == (ConfigFile[i]["name"]):
 		# Appoggio a variabile l'array
 		SensoriArray = ConfigFile[i]["value"]
+
 form=cgi.FieldStorage()
 
 Error = ""	# Serve per il calcolo/verifica di errore

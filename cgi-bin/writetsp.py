@@ -96,12 +96,6 @@ for i in range(len(TempsArray)):
 		else:
 			TempsArray[i]["value"] = int(cgi.escape(form[TempsArray[i]["name"]].value))
 
-## Controllo dati, errore se ci sono due dati identici.
-#for i in range(len(TempsArray)):
-#	for j in range(i+1,len(TempsArray)):
-#		if TempsArray[i]["value"] == TempsArray[j]["value"]:
-#			Error = "Ci sono due valori uguali, non posso accettare l'input"
-
 
 # Cerco i sensori nel file json, ma stavolta per fare il contrario, scriverli
 for i in range(len(ConfigFile)):
