@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Questo file legge il file di configurazione,
-# trova e modifica il parametro eseguando il "writeconfig.py"
+# trova e modifica il parametro eseguendo il rispettivo "write*.py"
 
 # Serve per controllare i files
 import os
@@ -14,17 +14,30 @@ import json
 import cgi
 import cgitb
 
+import time
 # Abilita gli errori al server web/http
 cgitb.enable()
 
 
 # Mi serve il file di configurazione, se esiste lo apro, se no setto un'errore
 if os.path.exists("config.json"):
-	with open("config.json") as JsonFileConfig:
-		ConfigFile = json.load(JsonFileConfig)
-	Error = ""
+	try:
+		with open("config.json") as JsonFileConfig:
+			ConfigFile = json.load(JsonFileConfig)
+			JsonFileConfig.close()
+	except IOError:
+		Error = "Errore di I/O \"config.json\""
+	except ValueError:
+		Error = "Errore dati \"config.json\", ritento .."
+		time.sleep(5)
+		with open("config.json") as JsonFileConfig:
+			ConfigFile = json.load(JsonFileConfig)
+			JsonFileConfig.close()
+	else:
+		Error = ""
 else:
-	Error = "Si e\` verificato un\'errore, non trovo il file \"config.json\""
+	Error = "Errore, non trovo il file \"config.json\""
+
 
 # Intestazione HTML
 print("<!DOCTYPE html>")
@@ -51,87 +64,73 @@ if Error != "":
 	print("<h1>",Error,"</h1><br/>")
 
 print("""
-<h2>Configurazione uscite</h2>
-<p>Sono quelle della GPIO utilizzate dal Raspberry Pi</p>
-<p><b>ATTENZIONE</b>: Verificare il tipo di Raspberry Pi in uso</p>
-<p>La presente selezione e` (dovrebbe) standardizzata per il tipo "B" (no "A" e no "B+")</p>
-<p>Ho previsto i soli valori dei GPIO "liberi" (che non hanno altre funzioni)</p>
-<p>Al momento ho messo e usato i valori della GPIO, poi valuteremo se meglio segnare il pin.
-Anche un'altra cosa, quella "ricorsione" per la ricerca dell'errore, da vedere se si riesce
-a farla piu` pulita, e` che non volevo usare una funzione, ma forse per questo caso e`
-meglio.</p>
+<h2>Configurazione uscite GPIO Raspberry Pi</h2>
+<p><b>ATTENZIONE</b>:</p>
+<ul>
+<li>Descrizione uscita</li>
+    <ul>
+    <li>Non utilizzare caratteri speciali, sembra impediscano la visualizzazione in alcuni casi
+    (non ho provato se si tratta solo di un difetto di visualizzazione o se e` un problema,
+    opterei per il fatto che sia anche un problema)</li>
+    </ul>
+</li>
+<li>Identificativo</li>
+    <ul>
+    <li>Non utilizzare caratteri speciali, sembra impediscano la visualizzazione in alcuni casi
+    (non ho provato se si tratta solo di un difetto di visualizzazione o se e` un problema,
+    opterei per il fatto che sia anche un problema)</li>
+    </ul>
+</li>
+<li>Pin</li>
+    <ul>
+    <li></li>
+    </ul>
+</li>
+</ul>
 <br/>
 <br/>
 """)
 
+
 print("<p><hr/></p><br/>")	# Stampa un linea orizzontale
 
+# Cerco ..
+for i in range(len(ConfigFile)):
+	if "outs" == (ConfigFile[i]["name"]):
+		# Appoggio a variabile l'array
+		OutsArray = ConfigFile[i]["value"]
+
+for i in range(len(ConfigFile)):
+	if "outfreegpio" == (ConfigFile[i]["name"]):
+		OutsFree = ConfigFile[i]["value"]
 
 # Start FORM input
-# writesensors.py
+# write*.py
 print("<form action=\"/cgi-bin/writeoutgpio.py\" method=\"post\">")
-#print("<table>")
+print("<table>")
 
-print("<p></p>")
-print("Seleziona l'uscita Termostato: ")
-# Cerco il "gpio" nel file config.json
-for i in range(len(ConfigFile)):
-	if "outgpio" == (ConfigFile[i]["name"]):
-		# Cerco i valori dei pin della gpio
-		for j in range(len(ConfigFile)):
-			if "outfreegpio" == (ConfigFile[j]["name"]):
-				# Inizo ad "impostare" la form
-				print("<select name=\"outgpio\">")
-				for k in (ConfigFile[j]["value"]).split(","):	# .split() converte una stringa in lista, fra parentesi il separatore (la virgola)
-					# Controllo il valore preimpostato e setto/resetto la selezione
-					if k == ConfigFile[i]["value"]:
-						Selected="selected"
-					else:
-						Selected=""
-					print("<option value=\"",k,"\"",Selected,">",k,"</option>", sep="")
-				print("</select>")
+# ..
+for j in range(len(OutsArray)):
+	print("<tr><td>Descrizione dell'uscita:</td><td><input type=\"text\" name=\"display",j,"\" value=\"",OutsArray[j]["display"],"\" size=\"40\" required></td></tr>", sep="")
+	print("<tr><td>Identificativo:</td><td><input type=\"text\" name=\"name",j,"\" value=\"",OutsArray[j]["name"],"\" size=\"40\" required></td></tr>", sep="")
+	print("<tr><td>Pin (GPIO):</td><td><select name=\"value",j,"\">", sep="")
+	for k in OutsFree.split(","):	# .split() converte una stringa in lista, fra parentesi il separatore (la virgola)
+		print(k)
+		# Controllo il valore preimpostato e setto/resetto la selezione
+		if k == OutsArray[j]["value"]:
+			Selected="selected"
+		else:
+			Selected=""
+		print("<option value=\"",k,"\"",Selected,">",k,"</option>", sep="")
+	print("</select></td></tr>")
+	print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
 
-print("<p></p>")
-print("Seleziona l'uscita di accensione/abilitazione riscaldamento: ")
-# Cerco il "enable" nel file config.json
-for i in range(len(ConfigFile)):
-	if "enable" == (ConfigFile[i]["name"]):
-		# Cerco i valori dei pin della gpio
-		for j in range(len(ConfigFile)):
-			if "outfreegpio" == (ConfigFile[j]["name"]):
-				# Inizo ad "impostare" la form
-				print("<select name=\"enable\">")
-				for k in (ConfigFile[j]["value"]).split(","):	# .split() converte una stringa in lista, fra parentesi il separatore (la virgola)
-					# Controllo il valore preimpostato e setto/resetto la selezione
-					if k == ConfigFile[i]["value"]:
-						Selected="selected"
-					else:
-						Selected=""
-					print("<option value=\"",k,"\"",Selected,">",k,"</option>", sep="")
-				print("</select>")
 
-print("<p></p>")
-print("Seleziona l'uscita di accensione impianto: ")
-# Cerco il "plant" nel file config.json
-for i in range(len(ConfigFile)):
-	if "plant" == (ConfigFile[i]["name"]):
-		# Cerco i valori dei pin della gpio
-		for j in range(len(ConfigFile)):
-			if "outfreegpio" == (ConfigFile[j]["name"]):
-				# Inizo ad "impostare" la form
-				print("<select name=\"plant\">")
-				for k in (ConfigFile[j]["value"]).split(","):	# .split() converte una stringa in lista, fra parentesi il separatore (la virgola)
-					# Controllo il valore preimpostato e setto/resetto la selezione
-					if k == ConfigFile[i]["value"]:
-						Selected="selected"
-					else:
-						Selected=""
-					print("<option value=\"",k,"\"",Selected,">",k,"</option>", sep="")
-				print("</select>")
 
-print("<p></p>")
-print("<input type=\"submit\" value=\"Submit\"></td>")
-#print("</table>")
+print("<tr>")
+print("<td></td><td><input type=\"submit\" value=\"Submit\"></td>")
+print("</tr>")
+print("</table>")
 print("</form>")	# END form
 
 

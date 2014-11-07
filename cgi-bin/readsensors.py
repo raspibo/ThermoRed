@@ -38,12 +38,6 @@ if os.path.exists("config.json"):
 else:
 	Error = "Errore, non trovo il file \"config.json\""
 
-# Cerco la directory dei device 1 wire
-for i in range(len(ConfigFile)):
-	if "dir1w" == (ConfigFile[i]["name"]):
-		# Appoggio a variabile
-		Dir1wire = os.listdir(ConfigFile[i]["value"])
-
 
 # Intestazione HTML
 print("<!DOCTYPE html>")
@@ -96,6 +90,12 @@ print("""
 <br/>
 <br/>
 """)
+
+# Cerco la directory dei device 1 wire
+for i in range(len(ConfigFile)):
+	if "dir1w" == (ConfigFile[i]["name"]):
+		# Appoggio a variabile
+		Dir1wire = os.listdir(ConfigFile[i]["value"])
 
 # Stampo sulla pagina web il listato della directory dei sensori 1wire
 # teoricamente e` da togliere sempre l'ultimo risultato,

@@ -44,14 +44,19 @@
         "display": "Sensori di temperatura", 
         "value": [
             {
-                "display": "Sonda di temperatura", 
-                "value": "10-0008029444b6", 
-                "name": "temp1"
+                "display": "Uscita comando riscaldamento", 
+                "value": "11", 
+                "name": "outterm"
             }, 
             {
-                "display": "Sonda waterproof", 
-                "value": "28-000004e199ad", 
-                "name": "temp2w"
+                "display": "Accensione impianto (interruttore)", 
+                "value": "18", 
+                "name": "plant"
+            }, 
+            {
+                "display": "Abilitazione riscaldamento (interruttore)", 
+                "value": "13", 
+                "name": "enable"
             }
         ], 
         "name": "sensori"
@@ -71,7 +76,7 @@
             }, 
             {
                 "display": "Accensione impianto (interruttore)", 
-                "value": "15", 
+                "value": "18", 
                 "name": "plant"
             }, 
             {

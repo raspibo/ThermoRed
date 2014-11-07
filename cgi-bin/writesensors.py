@@ -109,12 +109,12 @@ for j in range(len(SensoriArray)):
 		else:
 			Error = cgi.escape(form[FilenameN].value)+"- NON ESISTE"
 
+
 # Controllo dati, errore se ci sono due dati identici.
-for i in range(len(SensoriArray)-1):
-	if SensoriArray[i]["value"] == SensoriArray[i+1]["value"]:
-		Error = "Ci sono due valori uguali, non posso accettare l'input"
-	else:
-		Error = ""
+for i in range(len(SensoriArray)):
+	for j in range(i+1,len(SensoriArray)):
+		if SensoriArray[i]["value"] == SensoriArray[j]["value"]:
+			Error = "Ci sono due valori uguali, non posso accettare l'input"
 
 
 # Cerco i sensori nel file json, ma stavolta per fare il contrario, scriverli
