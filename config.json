@@ -14,22 +14,22 @@
         "value": [
             {
                 "display": "Temperatura Giorno", 
-                "value": "20", 
+                "value": 20, 
                 "name": "Tday"
             }, 
             {
                 "display": "Temperatura Notte", 
-                "value": "16", 
+                "value": 16, 
                 "name": "Tnight"
             }, 
             {
                 "display": "Temperatura Antigelo", 
-                "value": "10", 
+                "value": 5, 
                 "name": "Tice"
             }, 
             {
                 "display": "Temperatura in manuale", 
-                "value": "18", 
+                "value": 18, 
                 "name": "Tman"
             }
         ], 
@@ -44,19 +44,14 @@
         "display": "Sensori di temperatura", 
         "value": [
             {
-                "display": "Uscita comando riscaldamento", 
-                "value": "11", 
-                "name": "outterm"
+                "display": "Sonda di temperatura", 
+                "value": "10-0008029444b6", 
+                "name": "temp1"
             }, 
             {
-                "display": "Accensione impianto (interruttore)", 
-                "value": "18", 
-                "name": "plant"
-            }, 
-            {
-                "display": "Abilitazione riscaldamento (interruttore)", 
-                "value": "13", 
-                "name": "enable"
+                "display": "Sonda waterproof", 
+                "value": "28-000004e199ad", 
+                "name": "temp2w"
             }
         ], 
         "name": "sensori"
@@ -76,7 +71,7 @@
             }, 
             {
                 "display": "Accensione impianto (interruttore)", 
-                "value": "18", 
+                "value": "15", 
                 "name": "plant"
             }, 
             {
@@ -115,7 +110,7 @@
     }, 
     {
         "display": "Frequenza di aggiornamento grafico", 
-        "value": "1", 
+        "value": 2, 
         "name": "minutegraph"
     }, 
     {
@@ -123,7 +118,7 @@
         "value": [
             {
                 "display": "Data", 
-                "value": "var", 
+                "value": "fixed", 
                 "name": "date"
             }, 
             {
@@ -138,7 +133,7 @@
             }, 
             {
                 "display": "Temperatura di Set Point", 
-                "value": "var", 
+                "value": "fixed", 
                 "name": "setpoint"
             }
         ], 

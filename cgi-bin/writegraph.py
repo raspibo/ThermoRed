@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# Questo file legge il file di configurazione,
-# trova e modifica il parametro eseguando il "writeconfig.py"
+# Scrive il file di configurazione,
+# con i dati ricevuti dal rispettivo "read*.py"
 
 # Serve per controllare i files
 import os
@@ -14,23 +14,29 @@ import json
 import cgi
 import cgitb
 
+import time
 # Abilita gli errori al server web/http
 cgitb.enable()
 
 
 # Mi serve il file di configurazione, se esiste lo apro, se no setto un'errore
 if os.path.exists("config.json"):
-	with open("config.json") as JsonFileConfig:
-		ConfigFile = json.load(JsonFileConfig)
-	Error = ""
+	try:
+		with open("config.json") as JsonFileConfig:
+			ConfigFile = json.load(JsonFileConfig)
+			JsonFileConfig.close()
+	except IOError:
+		Error = "Errore di I/O \"config.json\""
+	except ValueError:
+		Error = "Errore dati \"config.json\", ritento .."
+		time.sleep(5)
+		with open("config.json") as JsonFileConfig:
+			ConfigFile = json.load(JsonFileConfig)
+			JsonFileConfig.close()
+	else:
+		Error = ""
 else:
-	Error = "Si e\` verificato un\'errore, non trovo il file \"config.json\""
-
-# Directory dei device 1 wire
-for i in range(len(ConfigFile)):
-	if "dir1w" == (ConfigFile[i]["name"]):
-		# Appoggio a variabile
-		Dir1wire = ConfigFile[i]["value"]
+	Error = "Errore, non trovo il file \"config.json\""
 
 
 # Intestazione HTML
@@ -58,50 +64,49 @@ if Error != "":
 	print("<h1>",Error,"</h1><br/>")
 
 print("""
-<h2>Configurazione del grafico delle temperature</h2>
-<p><b>ATTENZIONE</b>: Devo ancora scrivere l'help/guida</p>
-<p>???</p>
 <br/>
 <br/>
 """)
 
-print("<p><hr/></p><br/>")	# Stampa un linea orizzontale
 
-# Ricerca ...
+# Cerco ..
 for i in range(len(ConfigFile)):
-	if "graph" == (ConfigFile[i]["name"]):
+	if "temperature" == (ConfigFile[i]["name"]):
 		# Appoggio a variabile l'array
-		GraphArray = ConfigFile[i]["value"]
+		TempsArray = ConfigFile[i]["value"]
 
 form=cgi.FieldStorage()
 
-Error = ""	# Serve per il calcolo/verifica di errore
-# Come cazzo la spiego ?
-for j in range(len(GraphArray)):
-	DisplayN = "display"+str(j)
-	if DisplayN not in form:
-		print("<br/>Errore:", DisplayN)
-		Error = DisplayN
-	else:
-		GraphArray[j]["display"] = cgi.escape(form[DisplayN].value)
-	NameN = "name"+str(j)
-	if NameN not in form:
-		print("<br/>Errore:", NameN)
-		Error = NameN
-	else:
-		GraphArray[j]["name"] = cgi.escape(form[NameN].value)
-	ValueN = "value"+str(j)
-	if ValueN not in form:
-		print("<br/>Errore:", ValueN)
-		Error = ValueN
-	else:
-		GraphArray[j]["value"] = cgi.escape(form[ValueN].value)
 
-# Ricerca ... stavolta per fare il contrario, scriverli
+Error = ""	# Serve per il calcolo/verifica di errore
+# Comunque, questa parte, prima di scrivere il dato, verifica che il campo non sia vuoto,
+# ma ho corretto il codice html inserendo 'required', quindi ora il controllo dovrebbe
+# essere inutile, ma ormai ho scritto ..
 for i in range(len(ConfigFile)):
-	if "graph" == (ConfigFile[i]["name"]):
-		# Appoggio a variabile l'array
-		ConfigFile[i]["value"] = GraphArray
+	if "minutegraph" == (ConfigFile[i]["name"]):
+		if ConfigFile[i]["name"] not in form:
+			Error = ConfigFile[i]["name"]
+		else:
+			# Controllo se e` un numero intero
+			try:
+				Value = int(cgi.escape(form[ConfigFile[i]["name"]].value))
+			except ValueError:
+				Error = ConfigFile[i]["name"]+" non e` un numero intero."
+			else:
+				ConfigFile[i]["value"] = int(cgi.escape(form[ConfigFile[i]["name"]].value))
+
+## Controllo dati, errore se ci sono due dati identici.
+#for i in range(len(TempsArray)):
+#	for j in range(i+1,len(TempsArray)):
+#		if TempsArray[i]["value"] == TempsArray[j]["value"]:
+#			Error = "Ci sono due valori uguali, non posso accettare l'input"
+
+
+## Cerco i sensori nel file json, ma stavolta per fare il contrario, scriverli
+#for i in range(len(ConfigFile)):
+#	if "temperature" == (ConfigFile[i]["name"]):
+#		# Appoggio a variabile l'array
+#		ConfigFile[i]["value"] = TempsArray
 
 # Se non c'e` stato nessun errore, apro e scrivo il file
 if Error == "":
@@ -113,9 +118,10 @@ if Error == "":
 			<br/>
 			<p>Questo e` il risultato dell'inserimento:</p>
 		""")
-		print(GraphArray)
+		#print(TempsArray)
 		print(ConfigFile)
 		json.dump(ConfigFile, outfile, indent=4)
+		outfile.close()
 else:
 	print("<h2>Errore</h2>")
 	print("<p>",Error,"</p>")

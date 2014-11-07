@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Questo file legge il file di configurazione,
-# trova e modifica il parametro eseguando il "writeconfig.py"
+# trova e modifica il parametro eseguendo il rispettivo "write*.py"
 
 # Serve per controllare i files
 import os
@@ -14,17 +14,30 @@ import json
 import cgi
 import cgitb
 
+import time
 # Abilita gli errori al server web/http
 cgitb.enable()
 
 
 # Mi serve il file di configurazione, se esiste lo apro, se no setto un'errore
 if os.path.exists("config.json"):
-	with open("config.json") as JsonFileConfig:
-		ConfigFile = json.load(JsonFileConfig)
-	Error = ""
+	try:
+		with open("config.json") as JsonFileConfig:
+			ConfigFile = json.load(JsonFileConfig)
+			JsonFileConfig.close()
+	except IOError:
+		Error = "Errore di I/O \"config.json\""
+	except ValueError:
+		Error = "Errore dati \"config.json\", ritento .."
+		time.sleep(5)
+		with open("config.json") as JsonFileConfig:
+			ConfigFile = json.load(JsonFileConfig)
+			JsonFileConfig.close()
+	else:
+		Error = ""
 else:
-	Error = "Si e\` verificato un\'errore, non trovo il file \"config.json\""
+	Error = "Errore, non trovo il file \"config.json\""
+
 
 # Intestazione HTML
 print("<!DOCTYPE html>")
@@ -51,51 +64,65 @@ if Error != "":
 	print("<h1>",Error,"</h1><br/>")
 
 print("""
-<h2>Configurazione del grafico delle temperature</h2>
+<h2>Configurazione grafico temperature</h2>
 <p><b>ATTENZIONE</b>:</p>
-<p>Tutti i valori non hanno importanza (per ora).</p>
-<p>Hanno importanza le descrizioni, che sono quelle che compaiono nel grafico delle temperature e gli <b>identificativi</b>, che vengono utilizzati per la ricerca</p>
-<p>Questa e` una di quelle pagine che dovra` essere rivista perche` deve avere la possbibilita` di aggiungere e togliere dati, coordinatamente al file "temperature.csv"
-(che deve essere archiviato/salvato e poi rigenerato)</p>
-<p>Lunga storia ... per ora limitiamoci a due sonde ... o una, poi vedo come fare ..</p>
-<p>Aggiunto "hidden" ai valori non modificabili</p>
-<p>Non potevo mischiare le impostazioni a meno di rivoluzionare il tutto, quindi ho optato per l'inserimento manuale delle sonde di temperatura</p>
-
+<p>Ne faccio un pezzetto alla volta..</p>
+<p>Prima il refresh</p>
+<p>Comunque e` altamente probabile che debba farne due .. o tre</p>
 <br/>
 <br/>
 """)
 
-print("<h3>Lista dei sensori trovati/inseriti</h3>")
-for i in range(len(ConfigFile)):
-	if "sensori" == (ConfigFile[i]["name"]):
-		# Appoggio a variabile l'array
-		SensoriArray = ConfigFile[i]["value"]
-for j in range(len(SensoriArray)):
-	print(SensoriArray[j]["display"],": <b>",SensoriArray[j]["name"],"</b><br/>", sep="")
-
 
 print("<p><hr/></p><br/>")	# Stampa un linea orizzontale
 
-# Cerco i valori nel file json
+# Cerco ..
 for i in range(len(ConfigFile)):
 	if "graph" == (ConfigFile[i]["name"]):
 		# Appoggio a variabile l'array
 		GraphArray = ConfigFile[i]["value"]
 
+for i in range(len(ConfigFile)):
+	if "sensori" == (ConfigFile[i]["name"]):
+		# Appoggio a variabile l'array
+		SensoriArray = ConfigFile[i]["value"]
+
+
 # Start FORM input
-# writesensors.py
+# write*.py
 print("<form action=\"/cgi-bin/writegraph.py\" method=\"post\">")
 print("<table>")
 
-# Ricerca ..
-for j in range(len(GraphArray)):
-	print("<tr><td>Descrizione del valore:</td><td><input type=\"text\" name=\"display",j,"\" value=\"",GraphArray[j]["display"],"\" size=\"40\" </td></tr>", sep="")
-	print("<tr><td>Identificativo:</td><td><input type=\"text\" name=\"name",j,"\" value=\"",GraphArray[j]["name"],"\" size=\"40\" </td></tr>", sep="")
-	print("<tr><td hidden>Valore:</td><td hidden><input type=\"text\" name=\"value",j,"\" value=\"",GraphArray[j]["value"],"\" size=\"40\" </td></tr>", sep="")
-	print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
+# Per tutta la lunghezza/voci contenute nell'array ..
+#for i in range(len(GraphArray)):
+#	# Concatenamento di variabili da SetPoins e pezzi di html
+#	print("<tr><td>",GraphArray[i]["display"],":</td><td><input type=\"number\" name=\"",GraphArray[i]["name"],"\" value=\"",GraphArray[i]["value"],"\" min=\"5\" max=\"30\" maxlength=\"2\" size=\"2\" required><br/></td></tr>", sep="")
+for i in range(len(ConfigFile)):
+	if "minutegraph" == (ConfigFile[i]["name"]):
+		print("<tr><td>",ConfigFile[i]["display"],":</td><td><input type=\"number\" name=\"",ConfigFile[i]["name"],"\" value=\"",ConfigFile[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required><br/></td></tr>", sep="")
+
+print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
+
+for i in range(len(GraphArray)):
+	print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",GraphArray[i]["display"],"\" size=\"40\" required></td></tr>", sep="")
+	if "fixed" == GraphArray[i]["value"]:
+		print("<tr><td>Valore:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" disabled></td></tr>", sep="")
+	else:
+		print("<tr><td>Nome:</td><td><select name=\"name",i,"\">", sep="")
+		for j in range(len(SensoriArray)):
+			if SensoriArray[j]["name"] == GraphArray[i]["name"]:
+				Selected="selected"
+			else:
+				Selected=""
+			print("<option value=\"",SensoriArray[j]["name"],"\"",Selected,">",SensoriArray[j]["name"],"</option>", sep="")
+			#print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" disabled></td></tr>", sep="")
+	print("</select></td></tr>")
 
 
-print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Solita linea di separazione (forse si potrebbe farne a meno)
+print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
+
+
+
 print("<tr>")
 print("<td></td><td><input type=\"submit\" value=\"Submit\"></td>")
 print("</tr>")

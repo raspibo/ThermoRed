@@ -120,16 +120,16 @@ print("<form action=\"/cgi-bin/writesensors.py\" method=\"post\">")
 print("<table>")
 
 # Per tutti i sensori presenti
-for j in range(len(SensoriArray)):
-	print("<tr><td>Descrizione del sensore:</td><td><input type=\"text\" name=\"display",j,"\" value=\"",SensoriArray[j]["display"],"\" size=\"40\" required></td></tr>", sep="")
-	print("<tr><td>Identificativo:</td><td><input type=\"text\" name=\"name",j,"\" value=\"",SensoriArray[j]["name"],"\" size=\"40\" required></td></tr>", sep="")
-	print("<tr><td>Filename:</td><td><select name=\"value",j,"\">", sep="")
-	for i in range(len(Dir1wire)):
-		if SensoriArray[j]["value"] == Dir1wire[i]:
+for i in range(len(SensoriArray)):
+	print("<tr><td>Descrizione del sensore:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",SensoriArray[i]["display"],"\" size=\"40\" required></td></tr>", sep="")
+	print("<tr><td>Identificativo:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",SensoriArray[i]["name"],"\" size=\"40\" required></td></tr>", sep="")
+	print("<tr><td>Filename:</td><td><select name=\"value",i,"\">", sep="")
+	for j in range(len(Dir1wire)):
+		if SensoriArray[i]["value"] == Dir1wire[j]:
 			Selected="selected"
 		else:
 			Selected=""
-		print("<option value=\"",Dir1wire[i],"\"",Selected,">",Dir1wire[i],"</option>", sep="")
+		print("<option value=\"",Dir1wire[j],"\"",Selected,">",Dir1wire[j],"</option>", sep="")
 	print("</select></td></tr>")
 	print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
 
