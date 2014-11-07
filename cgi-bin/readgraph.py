@@ -93,16 +93,7 @@ for i in range(len(ConfigFile)):
 print("<form action=\"/cgi-bin/writegraph.py\" method=\"post\">")
 print("<table>")
 
-# Per tutta la lunghezza/voci contenute nell'array ..
-#for i in range(len(GraphArray)):
-#	# Concatenamento di variabili da SetPoins e pezzi di html
-#	print("<tr><td>",GraphArray[i]["display"],":</td><td><input type=\"number\" name=\"",GraphArray[i]["name"],"\" value=\"",GraphArray[i]["value"],"\" min=\"5\" max=\"30\" maxlength=\"2\" size=\"2\" required><br/></td></tr>", sep="")
-#for i in range(len(ConfigFile)):
-#	if "minutegraph" == (ConfigFile[i]["name"]):
-#		print("<tr><td>",ConfigFile[i]["display"],":</td><td><input type=\"number\" name=\"",ConfigFile[i]["name"],"\" value=\"",ConfigFile[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required><br/></td></tr>", sep="")
-
-#print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
-
+"""
 for i in range(len(GraphArray)):
 	if "minutegraph" == GraphArray[i]["name"]:
 		Disable = "readonly"
@@ -129,6 +120,35 @@ for i in range(len(GraphArray)):
 			print("<option value=\"",SensoriArray[j]["name"],"\"",Selected,">",SensoriArray[j]["name"],"</option>", sep="")
 			#print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" disabled></td></tr>", sep="")
 	print("</select></td></tr>")
+	print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
+"""
+for i in range(len(GraphArray)):
+	if "minutegraph" == GraphArray[i]["name"]:
+		print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",GraphArray[i]["display"],"\" size=\"40\" required readonly></td></tr>", sep="")
+		print("<tr><td>Nome:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" required readonly></td></tr>", sep="")
+		print("<tr><td>Valore:</td><td><input type=\"number\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required></td></tr>", sep="")
+	#print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" required readonly></td></tr>", sep="")
+	elif "data" == GraphArray[i]["name"]:
+		print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",GraphArray[i]["display"],"\" size=\"40\" required></td></tr>", sep="")
+		print("<tr><td>Nome:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" required readonly></td></tr>", sep="")
+		print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" required readonly></td></tr>", sep="")
+	elif "setpoint" == GraphArray[i]["name"]:
+		print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",GraphArray[i]["display"],"\" size=\"40\" required></td></tr>", sep="")
+		print("<tr><td>Nome:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" required readonly></td></tr>", sep="")
+		print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" required readonly></td></tr>", sep="")
+	elif "var" == GraphArray[i]["name"]:
+		print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",GraphArray[i]["display"],"\" size=\"40\" required></td></tr>", sep="")
+		print("<tr><td>Nome:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" required readonly></td></tr>", sep="")
+		print("<tr><td>Valore:</td><td><select name=\"value",i,"\">", sep="")
+		for j in range(len(SensoriArray)):
+			if SensoriArray[j]["name"] == GraphArray[i]["value"]:
+				Selected="selected"
+			else:
+				Selected=""
+			print("<option value=\"",SensoriArray[j]["name"],"\"",Selected,">",SensoriArray[j]["display"],"</option>", sep="")
+		print("</select></td></tr>")
+	else:
+		print("C'e` un'errore")
 	print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
 
 #print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea

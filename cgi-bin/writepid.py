@@ -71,9 +71,9 @@ print("""
 
 # Cerco ..
 for i in range(len(ConfigFile)):
-	if "graph" == (ConfigFile[i]["name"]):
+	if "pid" == (ConfigFile[i]["name"]):
 		# Appoggio a variabile l'array
-		GraphArray = ConfigFile[i]["value"]
+		PidArray = ConfigFile[i]["value"]
 
 form=cgi.FieldStorage()
 
@@ -82,32 +82,25 @@ Error = ""	# Serve per il calcolo/verifica di errore
 # Comunque, questa parte, prima di scrivere il dato, verifica che il campo non sia vuoto,
 # ma ho corretto il codice html inserendo 'required', quindi ora il controllo dovrebbe
 # essere inutile, ma ormai ho scritto ..
-for j in range(len(GraphArray)):
+for j in range(len(PidArray)):
 	DisplayN = "display"+str(j)
 	if DisplayN not in form:
 		print("<br/>Errore:", DisplayN)
 		Error = DisplayN
 	else:
-		GraphArray[j]["display"] = cgi.escape(form[DisplayN].value)
+		PidArray[j]["display"] = cgi.escape(form[DisplayN].value)
 	NameN = "name"+str(j)
 	if NameN not in form:
 		print("<br/>Errore:", NameN)
 		Error = NameN
 	else:
-		GraphArray[j]["name"] = cgi.escape(form[NameN].value)
+		PidArray[j]["name"] = cgi.escape(form[NameN].value)
 	ValueN = "value"+str(j)
 	if ValueN not in form:
 		print("<br/>Errore:", ValueN)
 		Error = ValueN
 	else:
-		GraphArray[j]["value"] = cgi.escape(form[ValueN].value)
-
-# Controllo dati, errore se ci sono due dati identici
-# ATTENZIONE, questa volta controlla il nome, non il dato
-for i in range(len(GraphArray)):
-	for j in range(i+1,len(GraphArray)):
-		if GraphArray[i]["value"] == GraphArray[j]["value"]:
-			Error = "Ci sono due valori uguali, non posso accettare l'input"
+		PidArray[j]["value"] = cgi.escape(form[ValueN].value)
 
 
 # Se non c'e` stato nessun errore, apro e scrivo il file

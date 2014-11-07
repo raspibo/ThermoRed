@@ -87,17 +87,17 @@
         "value": [
             {
                 "display": "Frequenza di controllo PID (minuti)", 
-                "value": "5", 
+                "value": "1", 
                 "name": "minutecycle"
             }, 
             {
                 "display": "Temperatura di approssimazione PID", 
-                "value": "5", 
+                "value": "0", 
                 "name": "tempcycle"
             }, 
             {
                 "display": "Sensore Termostato (di riferimento)", 
-                "value": "temp2w", 
+                "value": "temp1", 
                 "name": "termostato"
             }, 
             {
@@ -113,23 +113,23 @@
         "value": [
             {
                 "display": "Frequenza di aggiornamento", 
-                "value": "5", 
+                "value": "1", 
                 "name": "minutegraph"
             }, 
             {
                 "display": "Data", 
-                "value": "fixed", 
-                "name": "date"
+                "value": "data", 
+                "name": "data"
             }, 
             {
                 "display": "Sonda di temperatura 1", 
-                "value": "var", 
-                "name": "temp2w"
+                "value": "temp1", 
+                "name": "var"
             }, 
             {
                 "display": "Sonda 2", 
-                "value": "var", 
-                "name": "temp1"
+                "value": "temp2w", 
+                "name": "var"
             }, 
             {
                 "display": "Temperatura di Set Point", 
