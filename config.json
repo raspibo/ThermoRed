@@ -10,19 +10,30 @@
         "name": "on"
     }, 
     {
-        "display": "Temperatura in manuale", 
-        "value": "18", 
-        "name": "manual"
-    }, 
-    {
-        "display": "Accensione impianto", 
-        "value": "15", 
-        "name": "plant"
-    }, 
-    {
-        "display": "Abilitazione riscaldamento (interruttore)", 
-        "value": "13", 
-        "name": "enable"
+        "display": "Temperature", 
+        "value": [
+            {
+                "display": "Temperatura Giorno", 
+                "value": "20", 
+                "name": "Tday"
+            }, 
+            {
+                "display": "Temperatura Notte", 
+                "value": "16", 
+                "name": "Tnight"
+            }, 
+            {
+                "display": "Temperatura Antigelo", 
+                "value": "10", 
+                "name": "Tice"
+            }, 
+            {
+                "display": "Temperatura in manuale", 
+                "value": "18", 
+                "name": "Tman"
+            }
+        ], 
+        "name": "temperature"
     }, 
     {
         "display": "Directory 1 wire", 
@@ -34,21 +45,16 @@
         "value": [
             {
                 "display": "Sonda di temperatura", 
-                "name": "temp1", 
-                "filename": "10-0008029444b6"
+                "value": "10-0008029444b6", 
+                "name": "temp1"
             }, 
             {
                 "display": "Sonda waterproof", 
-                "name": "temp2w", 
-                "filename": "28-000004e199ad"
+                "value": "28-000004e199ad", 
+                "name": "temp2w"
             }
         ], 
         "name": "sensori"
-    }, 
-    {
-        "display": "Sensore Termostato (di riferimento)", 
-        "value": "temp2w", 
-        "name": "termostato"
     }, 
     {
         "display": "Raspberry Pi GPIO's", 
@@ -56,14 +62,51 @@
         "name": "outfreegpio"
     }, 
     {
-        "display": "Uscita Termostato (GPIO Raspberry Pi)", 
-        "value": "11", 
-        "name": "outgpio"
+        "display": "Uscite programmabili", 
+        "value": [
+            {
+                "display": "Uscita comando riscaldamento", 
+                "value": "11", 
+                "name": "outterm"
+            }, 
+            {
+                "display": "Accensione impianto (interruttore)", 
+                "value": "15", 
+                "name": "plant"
+            }, 
+            {
+                "display": "Abilitazione riscaldamento (interruttore)", 
+                "value": "13", 
+                "name": "enable"
+            }
+        ], 
+        "name": "outs"
     }, 
     {
-        "display": "Frequenza di controllo PID (minuti)", 
-        "value": "5", 
-        "name": "minutecycle"
+        "display": "Parametri PID", 
+        "value": [
+            {
+                "display": "Frequenza di controllo PID (minuti)", 
+                "value": "5", 
+                "name": "minutecycle"
+            }, 
+            {
+                "display": "Temperatura di approssimazione PID", 
+                "value": "5", 
+                "name": "tempcycle"
+            }, 
+            {
+                "display": "Sensore Termostato (di riferimento)", 
+                "value": "temp2w", 
+                "name": "termostato"
+            }, 
+            {
+                "display": "Uscita Termostato (GPIO Raspberry Pi)", 
+                "value": "outterm", 
+                "name": "outterm"
+            }
+        ], 
+        "name": "pid"
     }, 
     {
         "display": "Frequenza di aggiornamento grafico", 

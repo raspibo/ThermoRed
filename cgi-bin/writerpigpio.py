@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# Questo file legge il file di configurazione,
-# trova e modifica il parametro eseguando il "writeconfig.py"
+# Scrive il file di configurazione,
+# con i dati ricevuti dal rispettivo "read*.py"
 
 # Serve per controllare i files
 import os
@@ -14,23 +14,29 @@ import json
 import cgi
 import cgitb
 
+import time
 # Abilita gli errori al server web/http
 cgitb.enable()
 
 
 # Mi serve il file di configurazione, se esiste lo apro, se no setto un'errore
 if os.path.exists("config.json"):
-	with open("config.json") as JsonFileConfig:
-		ConfigFile = json.load(JsonFileConfig)
-	Error = ""
+	try:
+		with open("config.json") as JsonFileConfig:
+			ConfigFile = json.load(JsonFileConfig)
+			JsonFileConfig.close()
+	except IOError:
+		Error = "Errore di I/O \"config.json\""
+	except ValueError:
+		Error = "Errore dati \"config.json\", ritento .."
+		time.sleep(5)
+		with open("config.json") as JsonFileConfig:
+			ConfigFile = json.load(JsonFileConfig)
+			JsonFileConfig.close()
+	else:
+		Error = ""
 else:
-	Error = "Si e\` verificato un\'errore, non trovo il file \"config.json\""
-
-# Directory dei device 1 wire
-for i in range(len(ConfigFile)):
-	if "dir1w" == (ConfigFile[i]["name"]):
-		# Appoggio a variabile
-		Dir1wire = ConfigFile[i]["value"]
+	Error = "Errore, non trovo il file \"config.json\""
 
 
 # Intestazione HTML
@@ -58,16 +64,12 @@ if Error != "":
 	print("<h1>",Error,"</h1><br/>")
 
 print("""
-<h2>Configurazione GPIO "utili" del Raspberry Pi</h2>
-<p><b>ATTENZIONE</b>:</p>
-<p>Al momento sono previsti i pin della sola versione "B" e non legati ad altre funzionalita` (almeno spero ;))</p>
 <br/>
 <br/>
 """)
 
 
 form=cgi.FieldStorage()
-
 
 Error = ""	# Serve per il calcolo/verifica di errore
 # 
@@ -81,6 +83,7 @@ else:
 			# Una volta trovato ..
 			ConfigFile[i]["value"] = form["outfreegpio"].value
 
+
 # Se non c'e` stato nessun errore, apro e scrivo il file
 if Error == "":
 	with open("config.json", "w") as outfile:
@@ -93,11 +96,10 @@ if Error == "":
 		""")
 		print(ConfigFile)
 		json.dump(ConfigFile, outfile, indent=4)
+		outfile.close()
 else:
 	print("<h2>Errore</h2>")
 	print("<p>",Error,"</p>")
-
-
 
 
 # End body/End html
