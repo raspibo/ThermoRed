@@ -6,7 +6,7 @@
     }, 
     {
         "display": "On Manual Off (on/man/off)", 
-        "value": "on", 
+        "value": "off", 
         "name": "on"
     }, 
     {
@@ -41,16 +41,21 @@
         "name": "dir1w"
     }, 
     {
+        "display": "File 1 wire", 
+        "value": "w1_slave", 
+        "name": "file1w"
+    }, 
+    {
         "display": "Sensori di temperatura", 
         "value": [
             {
                 "display": "Sonda di temperatura", 
-                "value": "28-000004e199ad", 
+                "value": "10-0008029444b6", 
                 "name": "temp1"
             }, 
             {
                 "display": "Sonda waterproof", 
-                "value": "10-0008029444b6", 
+                "value": "28-000004e199ad", 
                 "name": "temp2w"
             }
         ], 

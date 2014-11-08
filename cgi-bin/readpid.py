@@ -66,7 +66,20 @@ if Error != "":
 print("""
 <h2>Configurazione parametri PID</h2>
 <p><b>ATTENZIONE</b>:</p>
-<p>Anche qua, mi sa che ne faccio un pezzetto alla volta..</p>
+<ul>
+<li>
+    La frequenza di controllo e` espressa in minuti, puo` andare da 1 a 60
+</li>
+<li>
+    La temperatura di approssimazione e` espressa in decimi di grado, puo` andare da 0 a 10, quindi un grado massimo.
+</li>
+<li>
+    Il sensore termostato e` quello di riferimento per il PID
+</li>
+<li>
+    L'usicta e` quella che comanda il riscaldamento
+</li>
+</ul>
 <br/>
 <br/>
 """)
@@ -102,9 +115,9 @@ for i in range(len(PidArray)):
 	print("<tr><td>Nome:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",PidArray[i]["name"],"\" size=\"40\" required readonly></td></tr>", sep="")
 	#print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",PidArray[i]["value"],"\" size=\"40\" required readonly></td></tr>", sep="")
 	if "minutecycle" == PidArray[i]["name"]:
-		print("<tr><td>Valore:</td><td><input type=\"number\" name=\"value",i,"\" value=\"",PidArray[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required></td></tr>", sep="")
+		print("<tr><td>Valore (minuti):</td><td><input type=\"number\" name=\"value",i,"\" value=\"",PidArray[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required></td></tr>", sep="")
 	elif "tempcycle" == PidArray[i]["name"]:
-		print("<tr><td>Valore:</td><td><input type=\"number\" name=\"value",i,"\" value=\"",PidArray[i]["value"],"\" min=\"-5\" max=\"5\" maxlength=\"2\" size=\"2\" required></td></tr>", sep="")
+		print("<tr><td>Valore (decimi di grado):</td><td><input type=\"number\" name=\"value",i,"\" value=\"",PidArray[i]["value"],"\" min=\"0\" max=\"10\" maxlength=\"2\" size=\"2\" required></td></tr>", sep="")
 	elif "termostato" == PidArray[i]["name"]:
 		print("<tr><td>Valore:</td><td><select name=\"value",i,"\">", sep="")
 		for j in range(len(SensoriArray)):

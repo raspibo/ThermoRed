@@ -111,17 +111,18 @@ for j in range(len(WtspFile)):
 	</tr>")
 	# per tutta la lunghezza delle temperature (3)
 	for i in range(len(TempsArray)):
-		print("<tr><td>",TempsArray[i]["display"],": </td>")
-		# Per tutta la lunghezza/voci contenute nell'array .. ore
-		for k in range(len(WtspFile[j]["hours"])):
-			# Se la temperatura oraria corrisponde ad un setpoin, marco il settaggio
-			#print (WtspFile[j]["hours"][k]["temperature"], "||", TempsArray[i]["name"],"<br>")
-			if WtspFile[j]["hours"][k]["temperature"] == TempsArray[i]["name"]:
-				Checked="checked"
-			else:
-				Checked=""
-			# Concatenamento 
-			print("<td><input type=\"radio\" name=\"",WtspFile[j]["day"],k,"\" value=\"",TempsArray[i]["name"],"\" ",Checked,"> </td>", sep="")
+		if "Tman" != TempsArray[i]["name"]:	# Esclude la temperatura manuale
+			print("<tr><td>",TempsArray[i]["display"],": </td>")
+			# Per tutta la lunghezza/voci contenute nell'array .. ore
+			for k in range(len(WtspFile[j]["hours"])):
+				# Se la temperatura oraria corrisponde ad un setpoin, marco il settaggio
+				#print (WtspFile[j]["hours"][k]["temperature"], "||", TempsArray[i]["name"],"<br>")
+				if WtspFile[j]["hours"][k]["temperature"] == TempsArray[i]["name"]:
+					Checked="checked"
+				else:
+					Checked=""
+				# Concatenamento 
+				print("<td><input type=\"radio\" name=\"",WtspFile[j]["day"],k,"\" value=\"",TempsArray[i]["name"],"\" ",Checked,"> </td>", sep="")
 	print("</tr>")
 	print("<tr><td><b>",WtspFile[j]["day"],"</b></td><td colspan=\"24\"><hr></td></tr>")
 
