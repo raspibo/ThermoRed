@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# trova e modifica eseguendo il rispettivo "write*.py"
+# Reset temperature.csv
 
 # Serve per la parte di gestione html in python
 import cgi
@@ -31,8 +31,10 @@ print("""
 
 ## Inizio pagina web
 print("""
-<h2>Backup dei files</h2>
-<p><b>Salva solo i files di configurazione e per scrupolo anche le temperature</b></p>
+<h2>Azzera grafico (temperature.csv)</h2>
+<p><h3>ATTENZIONE</h3></p>
+<p><b>Stai per azzerare il file "temperature.csv" ricreandolo.</b></p>
+<p>Questa operazione esegue anche una rilettura dal file config.json per riscrivere l'intestazione</p>
 <br/>
 <br/>
 """)
@@ -41,18 +43,13 @@ print("<p><hr/></p><br/>")	# Stampa un linea orizzontale
 
 # Start FORM input
 # write*.py
-print("<form action=\"/cgi-bin/writefiles.py\" method=\"post\">")
+print("<form action=\"/cgi-bin/writecsv.py\" method=\"post\">")
 print("""
-Non ci sono impostazioni, verranno creati o sovrascritti i files:
-<ul>
-<li>config.json.bak</li>
-<li>weektsp.json.bak</li>
-<li>temperature.csv.bak</li>
-</ul>
-
+Non ci sono impostazioni.<br/>
+Verra` ricreato "temperature.csv"
 """)
 
-print("<center><input type=\"submit\" value=\"Backup\"></center>")
+print("<center><input type=\"submit\" value=\"Reset 'temperature.csv'\"></center>")
 print("</form>")	# END form
 
 
