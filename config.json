@@ -49,7 +49,7 @@
         "display": "Sensori di temperatura", 
         "value": [
             {
-                "display": "Sonda di temperatura", 
+                "display": "Sonda su basetta", 
                 "value": "10-0008029444b6", 
                 "name": "temp1"
             }, 
@@ -92,7 +92,7 @@
         "value": [
             {
                 "display": "Frequenza di controllo PID (minuti)", 
-                "value": "1", 
+                "value": "5", 
                 "name": "minutecycle"
             }, 
             {
@@ -127,17 +127,17 @@
                 "name": "data"
             }, 
             {
-                "display": "Sonda di temperatura 1", 
+                "display": "Sonda su basetta", 
                 "value": "temp1", 
                 "name": "var"
             }, 
             {
-                "display": "Sonda 2", 
+                "display": "Sonda Waterproof", 
                 "value": "temp2w", 
                 "name": "var"
             }, 
             {
-                "display": "Temperatura di Set Point", 
+                "display": "Set Point", 
                 "value": "fixed", 
                 "name": "setpoint"
             }
