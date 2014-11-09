@@ -6,7 +6,7 @@
     }, 
     {
         "display": "On Manual Off (on/man/off)", 
-        "value": "off", 
+        "value": "on", 
         "name": "on"
     }, 
     {

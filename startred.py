@@ -111,7 +111,7 @@ def CalcolaGiornoOra():
 		CalcoloGiorno="6"
 	else:
 		CalcoloGiorno=int(Giorno)-1
-	return CalcoloGiorno,int(Ora)
+	return int(CalcoloGiorno),int(Ora)
 
 # Aggiunge dati ad un file, aprendolo e richiudendolo
 def AddFileData(Filename,Dato):
