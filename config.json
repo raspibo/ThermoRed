@@ -96,9 +96,14 @@
                 "name": "minutecycle"
             }, 
             {
-                "display": "Temperatura di approssimazione PID", 
+                "display": "Temperatura inerziale positiva PID", 
                 "value": "0", 
-                "name": "tempcycle"
+                "name": "tempcycle+"
+            }, 
+            {
+                "display": "Temperatura inerziale negativa PID", 
+                "value": "-10", 
+                "name": "tempcycle-"
             }, 
             {
                 "display": "Sensore Termostato (di riferimento)", 

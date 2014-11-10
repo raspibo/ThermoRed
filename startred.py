@@ -175,7 +175,7 @@ try:
 						print(TemperaturaLetta)
 						AddFileData("temperature.csv",str(TemperaturaLetta))
 					else:
-						AddFileData("temperature.csv","err")	# err, se errore sonda, non so ancora cosa fara` il grafico perche` non e` successo.
+						AddFileData("temperature.csv","err")	# err, se errore sonda, il grafico non visualizza (ok)
 					# Aggiungo la virgola di separazione
 					AddFileData("temperature.csv",",")
 			# Calcola Temperatura Set Point
@@ -258,24 +258,35 @@ try:
 					else:
 						TemperaturaLetta=TemperatureSetPoint	# Mi serve comunque un valore per andare avanti.
 			print(TemperaturaLetta)
-			# Prima della verifica si dovrebbe aggiungere la tolleranza/approssimazione
-			# Leggo il valore
-			TemperaturaApprossimazione = int(SearchValue2JsonVar(ConfigFile,"pid","tempcycle"))/10	# Decimi di grado
-			# Se la differenza temperature e` > del valore assoluto
-			print(abs(int(TemperatureSetPoint) - TemperaturaLetta))
-			if abs(int(TemperatureSetPoint) - TemperaturaLetta) > TemperaturaApprossimazione:
-				if int(TemperatureSetPoint) > TemperaturaLetta:
-					print("Accendi uscita",UscitaTermostato)
-					GPIO.output(UscitaTermostato, True)
-				else:
-					print("Spegni uscita",UscitaTermostato)
-					GPIO.output(UscitaTermostato, False)
 			# Devo tenere l'uscita spenta se sono in off (anche se ho impostato la Tice)
 			# Poi forse e` meglio togliere, anche se ho dimenticato spento, non voglio
 			# si ghiaccino le tubature ..
 			if EnableCycle == "off":
 				print("Spegni uscita",UscitaTermostato)
 				GPIO.output(UscitaTermostato, False)
+			else:
+				# Prima della verifica si dovrebbe aggiungere la tolleranza/approssimazione
+				# Leggo il valore
+				# Temperatura inerziale in riscaldamento
+				TemperaturaInerzialePositiva = int(SearchValue2JsonVar(ConfigFile,"pid","tempcycle+"))/10	# Decimi di grado
+				# Temperature inerziale in "raffreddamento"
+				TemperaturaInerzialeNegativa = int(SearchValue2JsonVar(ConfigFile,"pid","tempcycle-"))/10	# Decimi di grado
+				# Se temperatura set point meno temperatura d'inerzia e` minore della lettura
+				if int(TemperatureSetPoint) - TemperaturaInerzialeNegativa < TemperaturaLetta:
+					print("Accendi uscita",UscitaTermostato)
+					GPIO.output(UscitaTermostato, True)
+				# Se set point - inerziale e` maggiore
+				elif int(TemperatureSetPoint) + TemperaturaInerzialePositiva > TemperaturaLetta:
+					print("Spegni uscita",UscitaTermostato)
+					GPIO.output(UscitaTermostato, False)
+				#if abs(int(TemperatureSetPoint) - TemperaturaLetta) > TemperaturaApprossimazione:
+				#	if int(TemperatureSetPoint) > TemperaturaLetta:
+				#		print("Accendi uscita",UscitaTermostato)
+				#		GPIO.output(UscitaTermostato, True)
+				#	else:
+				#		print("Spegni uscita",UscitaTermostato)
+				#		GPIO.output(UscitaTermostato, False)
+				#################################################################################
 			# Devo azzerare tempi e rileggere le variabili ..
 			TempoInizio[1] = int(time.time())
 			ConfigFile = ReadJsonFile("config.json")

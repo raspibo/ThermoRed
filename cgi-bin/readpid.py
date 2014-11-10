@@ -116,8 +116,10 @@ for i in range(len(PidArray)):
 	#print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",PidArray[i]["value"],"\" size=\"40\" required readonly></td></tr>", sep="")
 	if "minutecycle" == PidArray[i]["name"]:
 		print("<tr><td>Valore (minuti):</td><td><input type=\"number\" name=\"value",i,"\" value=\"",PidArray[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required></td></tr>", sep="")
-	elif "tempcycle" == PidArray[i]["name"]:
+	elif "tempcycle+" == PidArray[i]["name"]:
 		print("<tr><td>Valore (decimi di grado):</td><td><input type=\"number\" name=\"value",i,"\" value=\"",PidArray[i]["value"],"\" min=\"0\" max=\"10\" maxlength=\"2\" size=\"2\" required></td></tr>", sep="")
+	elif "tempcycle-" == PidArray[i]["name"]:
+		print("<tr><td>Valore (decimi di grado):</td><td><input type=\"number\" name=\"value",i,"\" value=\"",PidArray[i]["value"],"\" min=\"-10\" max=\"0\" maxlength=\"2\" size=\"2\" required></td></tr>", sep="")
 	elif "termostato" == PidArray[i]["name"]:
 		print("<tr><td>Valore:</td><td><select name=\"value",i,"\">", sep="")
 		for j in range(len(SensoriArray)):
