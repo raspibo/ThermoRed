@@ -34,7 +34,6 @@ Eseguire all'avvio del sistema:
 
 ```
 cd /home/pi/git/ThermoRed
-sudo bash load1wire.sh
 python3 python3webserver.py &
 ```
 
