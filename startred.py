@@ -272,11 +272,11 @@ try:
 				# Temperature inerziale in "raffreddamento"
 				TemperaturaInerzialeNegativa = int(SearchValue2JsonVar(ConfigFile,"pid","tempcycle-"))/10	# Decimi di grado
 				# Se temperatura set point meno temperatura d'inerzia e` minore della lettura
-				if int(TemperatureSetPoint) - TemperaturaInerzialeNegativa < TemperaturaLetta:
+				if TemperaturaLetta + TemperaturaInerzialePositiva > int(TemperatureSetPoint):
 					print("Accendi uscita",UscitaTermostato)
 					GPIO.output(UscitaTermostato, True)
 				# Se set point - inerziale e` maggiore
-				elif int(TemperatureSetPoint) + TemperaturaInerzialePositiva > TemperaturaLetta:
+				elif TemperaturaLetta + TemperaturaInerzialePositiva < int(TemperatureSetPoint):
 					print("Spegni uscita",UscitaTermostato)
 					GPIO.output(UscitaTermostato, False)
 				#if abs(int(TemperatureSetPoint) - TemperaturaLetta) > TemperaturaApprossimazione:
