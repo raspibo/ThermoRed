@@ -65,10 +65,16 @@ if Error != "":
 
 print("""
 <h2>Configurazione grafico temperature</h2>
-<p><b>ATTENZIONE</b>:</p>
-<p>Ne faccio un pezzetto alla volta..</p>
-<p>Prima il refresh</p>
-<p>Comunque e` altamente probabile che debba farne due .. o tre</p>
+<p><b></b></p>
+<p>In questa pagina e` possibile cambiare il tempo di lettura delle temperature e conseguente
+aggiornamento grafico, che non ha un refresh automatico, si deve "cliccare" sulla pagina quando
+e` necessario un refresh.</p>
+<p>E` poi possibile cambiare le descrizioni del grafico delle temperature (Data,Sonda1,Sonda2,SetPoint),
+descrizioni che verranno comunque "ricreate" solamente dopo un azzeramento del "temperature.csv",
+vedi pagina "Azzera temperature.csv".</p>
+<p>Sono da associare le descrizioni dei sensori con le opportune/relative sonde di temperatura.</p>
+<p>Altri valori non sono editabili.</p>
+<p></p>
 <br/>
 <br/>
 """)

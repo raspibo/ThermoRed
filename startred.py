@@ -14,31 +14,6 @@ e` tutto da vedere
 	Per il comando dell'uscita:
 		L'uscita
 		Il sensore di rieferimento della temperatura da controllare
-	La frequenza di controllo servira` per tutto ?
-		Per il grafico, quindi temperature.csv
-		Per il PID, quindi il comando dell'uscita
-	Necessitera` sapere se l'impianto e`: ON, Manuale, Off.
-	Questo perche` cambieranno i set point da automatico a manuale,
-	o perche` dovro` interrompere il comando dell'uscita.
-- Conviene mettere tutte le variabili in gruppo, o conviene singole ?
-	Per semplicita` mi suggerisco singole ;)
-
-###
-Ho spostato il ricalcolo dei tempi di ciclo dopo le operazioni,
-cioe` ogni volta che vene azzerato un calcolo tempo.
-Nel mezzo del while true veniva eseguito troppo spesso e modificando
-il config.json lo script va in crash.
-
-Risolvere il problem facendo "ricalcolare" le variabili solo al
-cambio files di configurazione o su esplicito comando operatore.
-Poi servira` anche un controllo che lo script e` in funzione e
-magari qualcosa per poterlo riavviare.
-
-### Forse risolto il problema col "try"
-### No. C'e` qualcos'altro.
-### Messo una pezza col except ValueErrore e ritenta ..
-
-
 
 """
 
@@ -113,6 +88,17 @@ def CalcolaGiornoOra():
 		CalcoloGiorno=int(Giorno)-1
 	return int(CalcoloGiorno),int(Ora)
 
+# Apre/legge un file e restituisce il contenuto
+def ReadFileData(Filename):
+	if os.path.exists(Filename):
+		FileTemp = open(Filename,"r")
+		DataFile = FileTemp.read()
+		FileTemp.close()
+		return DataFile
+	else:
+		print ("Errore, manca il file", Filename)
+		exit()
+
 # Aggiunge dati ad un file, aprendolo e richiudendolo
 def AddFileData(Filename,Dato):
 	if os.path.exists(Filename):
@@ -125,6 +111,12 @@ def AddFileData(Filename,Dato):
 
 
 ### Programma ###
+
+# Carico da qua i moduli del kernel,
+# visto che a causa della GPIO devo eseguire il programma da root
+os.system("modprobe w1_gpio")
+os.system("modprobe w1_therm")
+
 
 # Mi serve un tempo d'inizio per l'aggiornamento Grafico e per il PID
 # TempoInizio[0] grafico
@@ -152,7 +144,7 @@ try:
 		if int(time.time()) - TempoInizio[0] > TempoGrafico:
 			# Prima di tutto, guardo se .. manuale/on/off e setto una variabile
 			EnableCycle = SearchValueJsonVar(ConfigFile,"on")
-			print("Aggiornamento grafico")
+			print("In ciclo \"Aggiornamento grafico\" ..")
 			# Scrive il file temperature.csv
 			# subito la data ..
 			AddFileData("temperature.csv",time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()))
@@ -165,14 +157,14 @@ try:
 			EndFilename = SearchValueJsonVar(ConfigFile,"file1w")
 			Sensori = SearchValueJsonVar(ConfigFile,"sensori")
 			for i in range(len(Sensori)):
-					Sensore = open(Dir1w+Sensori[i]["value"]+"/"+EndFilename,"r")
-					# Controlla se gli ultimi caratteri della stringa letta sono uguali a
-					if (Sensore.readline()[-4:-1]) == "YES":
+					Sensore = ReadFileData(Dir1w+Sensori[i]["value"]+"/"+EndFilename)
+					# Controlla se i caratteri da 36 a 39 della stringa letta sono uguali a
+					if (Sensore[36:39]) == "YES":
 						# Effettuo il calcolo della temperatura indicando che il valore e` intero
 						# prima del calcolo e che e` una stringa per passarla in scrittura
 						# Mi serve il valore per il confronto ed il comando dell'uscita
-						TemperaturaLetta=int(Sensore.readline()[-6:-1])/1000
-						print(TemperaturaLetta)
+						TemperaturaLetta=int(Sensore[69:])/1000
+						print("Temperatura Letta:", TemperaturaLetta)
 						AddFileData("temperature.csv",str(TemperaturaLetta))
 					else:
 						AddFileData("temperature.csv","err")	# err, se errore sonda, il grafico non visualizza (ok)
@@ -187,16 +179,16 @@ try:
 					# Se il nome della temperatura nel file di configurazione
 					# e` uguale al nome nel file week (posizione giorno, sottoposizione ora)
 					if TemperatureConf[i]["name"] == SetPoints[CalcolaGiornoOra()[0]]["hours"][CalcolaGiornoOra()[1]]["temperature"]:
-						TemperatureSetPoint = TemperatureConf[i]["value"]
-						AddFileData("temperature.csv",str(TemperatureSetPoint))
+						TemperaturaSetPoint = TemperatureConf[i]["value"]
+						AddFileData("temperature.csv",str(TemperaturaSetPoint))
 			# .. altrimenti, trova e usa quella manuale
 			elif EnableCycle == "man":
-				TemperatureSetPoint = SearchValue2JsonVar(ConfigFile,"temperature","Tman")
-				AddFileData("temperature.csv",str(TemperatureSetPoint))
+				TemperaturaSetPoint = SearchValue2JsonVar(ConfigFile,"temperature","Tman")
+				AddFileData("temperature.csv",str(TemperaturaSetPoint))
 			else:
-				TemperatureSetPoint = SearchValue2JsonVar(ConfigFile,"temperature","Tice")	# Metto la piu` bassa (se non e` stata mal configurata)
-				AddFileData("temperature.csv",str(TemperatureSetPoint))
-			print(TemperatureSetPoint)
+				TemperaturaSetPoint = SearchValue2JsonVar(ConfigFile,"temperature","Tice")	# Metto la piu` bassa (se non e` stata mal configurata)
+				AddFileData("temperature.csv",str(TemperaturaSetPoint))
+			print("Temperatura di Set Point:",TemperaturaSetPoint)
 			AddFileData("temperature.csv","\n")	# Ho terminato ed aggiungo il ritorno a capo
 			# Devo azzerare tempi e rileggere le variabili ..
 			TempoInizio[0] = int(time.time())
@@ -214,8 +206,8 @@ try:
 		if int(time.time()) - TempoInizio[1] > TempoCiclo:
 			# Prima di tutto, guardo se .. manuale/on/off e setto una variabile
 			EnableCycle = SearchValueJsonVar(ConfigFile,"on")
-			print(EnableCycle)
-			print("Aggiornamento ciclico")
+			print("Enable:",EnableCycle)
+			print("In ciclo \"Aggiornamento Ciclico\" .. ")
 			# Set uscite termostato per comando
 			UscitaConfPID = SearchValue2JsonVar(ConfigFile,"pid","outterm")	# Cerco l'usicta configurate nel PID
 			Uscite = SearchValueJsonVar(ConfigFile,"outs")	# Cerco le uscite disponibili
@@ -232,12 +224,12 @@ try:
 					# Se il nome della temperatura nel file di configurazione
 					# e` uguale al nome nel file week (posizione giorno, sottoposizione ora)
 					if TemperatureConf[i]["name"] == SetPoints[CalcolaGiornoOra()[0]]["hours"][CalcolaGiornoOra()[1]]["temperature"]:
-						TemperatureSetPoint = TemperatureConf[i]["value"]
+						TemperaturaSetPoint = TemperatureConf[i]["value"]
 			# .. altrimenti, trova e usa quella manuale
 			elif EnableCycle == "man":
-				TemperatureSetPoint = SearchValue2JsonVar(ConfigFile,"temperature","Tman")
+				TemperaturaSetPoint = SearchValue2JsonVar(ConfigFile,"temperature","Tman")
 			else:
-				TemperatureSetPoint = SearchValue2JsonVar(ConfigFile,"temperature","Tice")	# Metto la piu` bassa (se non e` stata mal configurata)
+				TemperaturaSetPoint = SearchValue2JsonVar(ConfigFile,"temperature","Tice")	# Metto la piu` bassa (se non e` stata mal configurata)
 			# Calcola Temperatura Termostato
 			SensoreTermostato = SearchValue2JsonVar(ConfigFile,"pid","termostato")
 			# adesso lo vado a cercare .. lui ed il valore ..
@@ -248,21 +240,22 @@ try:
 			Sensori = SearchValueJsonVar(ConfigFile,"sensori")
 			for i in range(len(Sensori)):
 				if Sensori[i]["name"] == SensoreTermostato:
-					Sensore = open(Dir1w+Sensori[i]["value"]+"/"+EndFilename,"r")
-					# Controlla se gli ultimi caratteri della stringa letta sono uguali a
-					if (Sensore.readline()[-4:-1]) == "YES":
+					Sensore = ReadFileData(Dir1w+Sensori[i]["value"]+"/"+EndFilename)
+					# Controlla se i caratteri da 36 a 39 della stringa letta sono uguali a
+					if (Sensore[36:39]) == "YES":
 						# Effettuo il calcolo della temperatura indicando che il valore e` intero
 						# prima del calcolo e che e` una stringa per passarla in scrittura
 						# Mi serve il valore per il confronto ed il comando dell'uscita
-						TemperaturaLetta=int(Sensore.readline()[-6:-1])/1000
+						TemperaturaLetta=int(Sensore[69:])/1000
 					else:
-						TemperaturaLetta=TemperatureSetPoint	# Mi serve comunque un valore per andare avanti.
-			print(TemperaturaLetta)
+						TemperaturaLetta=TemperaturaSetPoint	# Mi serve comunque un valore per andare avanti.
+			print("Temperatura letta:",TemperaturaLetta)
+			print("Temperatura setpoint:",TemperaturaSetPoint)
 			# Devo tenere l'uscita spenta se sono in off (anche se ho impostato la Tice)
 			# Poi forse e` meglio togliere, anche se ho dimenticato spento, non voglio
 			# si ghiaccino le tubature ..
 			if EnableCycle == "off":
-				print("Spegni uscita",UscitaTermostato)
+				print("Spengo uscita",UscitaTermostato)
 				GPIO.output(UscitaTermostato, False)
 			else:
 				# Prima della verifica si dovrebbe aggiungere la tolleranza/approssimazione
@@ -272,15 +265,17 @@ try:
 				# Temperature inerziale in "raffreddamento"
 				TemperaturaInerzialeNegativa = int(SearchValue2JsonVar(ConfigFile,"pid","tempcycle-"))/10	# Decimi di grado
 				# Se temperatura set point meno temperatura d'inerzia e` minore della lettura
-				if TemperaturaLetta + TemperaturaInerzialePositiva > int(TemperatureSetPoint):
-					print("Accendi uscita",UscitaTermostato)
+				if TemperaturaLetta + TemperaturaInerzialeNegativa < int(TemperaturaSetPoint):
+					print("?:",TemperaturaLetta,"+",TemperaturaInerzialeNegativa,"<",int(TemperaturaSetPoint))
+					print("Accendo uscita",UscitaTermostato)
 					GPIO.output(UscitaTermostato, True)
 				# Se set point - inerziale e` maggiore
-				elif TemperaturaLetta + TemperaturaInerzialePositiva < int(TemperatureSetPoint):
-					print("Spegni uscita",UscitaTermostato)
+				elif TemperaturaLetta + TemperaturaInerzialePositiva > int(TemperaturaSetPoint):
+					print("?:",TemperaturaLetta,"+",TemperaturaInerzialePositiva,">",int(TemperaturaSetPoint))
+					print("Spengo uscita",UscitaTermostato)
 					GPIO.output(UscitaTermostato, False)
-				#if abs(int(TemperatureSetPoint) - TemperaturaLetta) > TemperaturaApprossimazione:
-				#	if int(TemperatureSetPoint) > TemperaturaLetta:
+				#if abs(int(TemperaturaSetPoint) - TemperaturaLetta) > TemperaturaApprossimazione:
+				#	if int(TemperaturaSetPoint) > TemperaturaLetta:
 				#		print("Accendi uscita",UscitaTermostato)
 				#		GPIO.output(UscitaTermostato, True)
 				#	else:

@@ -77,9 +77,22 @@ print("""
     Il sensore termostato e` quello di riferimento per il PID
 </li>
 <li>
-    L'usicta e` quella che comanda il riscaldamento
+    L'uscita e` quella che comanda il riscaldamento
 </li>
 </ul>
+<p><h4>Temperature</h4>
+Informazioni per le impostazioni di temperature inerziali positive e negative.
+Teoricamente, piu` e` lungo il tempo di ciclo del PID piu` bassi devono essere i valori d'inerzia.
+Ovviamente sono due variabili (tempi e inerzie) da "sperimentare", per arrivare ad una configurazione soddisfacente,
+per non accendere/spegnere continuamente, pur mantenendo una temperatura il piu` possibile costante.
+</p>
+<p>
+<pre>
+Inerzia sopra +: --------------------------- Se Letta + Sopra > Set Point = Out OFF
+Set Point      : ===========================
+Inerzia sotto -: --------------------------- Se Letta + Sotto < Set Point = Out ON
+</pre>
+</p>
 <br/>
 <br/>
 """)

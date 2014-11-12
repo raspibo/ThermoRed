@@ -102,7 +102,7 @@
             }, 
             {
                 "display": "Temperatura inerziale negativa PID", 
-                "value": "-10", 
+                "value": "0", 
                 "name": "tempcycle-"
             }, 
             {
