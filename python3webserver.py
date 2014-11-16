@@ -7,6 +7,10 @@ class Handler(CGIHTTPRequestHandler):
 
 PORT = 8080 
 
-httpd = HTTPServer(("", PORT), Handler)
-print("serving at port", PORT)
-httpd.serve_forever()
+try:
+	httpd = HTTPServer(("", PORT), Handler)
+	print("serving at port", PORT)
+	httpd.serve_forever()
+except KeyboardInterrupt:
+	print (" received, shutting down..")
+	httpd.socket.close()

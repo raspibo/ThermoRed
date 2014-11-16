@@ -107,7 +107,7 @@
             }, 
             {
                 "display": "Sensore Termostato (di riferimento)", 
-                "value": "temp1", 
+                "value": "temp2w", 
                 "name": "termostato"
             }, 
             {
