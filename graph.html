@@ -34,13 +34,16 @@ Con il tasto "Shift" premuto, usa il click del mouse per trascinare l'area di vi
 
     // CSV or path to a CSV file.
     "temperature.csv",
-    {showRoller:false,
+    {
+    showRoller: false,
+    title: 'Grafico temperature',
     ylabel: 'Temperature (C)',
-    xlabel: 'Time',}
-
+    xlabel: 'Time',
+    legend: 'always',
+    labelDivStyles: {'textalign':'right'}
+    }
   );
 </script>
-
 
 </body>
 </html>

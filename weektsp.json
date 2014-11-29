@@ -74,7 +74,7 @@
                 "hour": "17"
             }, 
             {
-                "temperature": "Tnight", 
+                "temperature": "Tday", 
                 "hour": "18"
             }, 
             {
@@ -103,7 +103,7 @@
     {
         "hours": [
             {
-                "temperature": "Tday", 
+                "temperature": "Tnight", 
                 "hour": "00"
             }, 
             {
@@ -599,7 +599,7 @@
                 "hour": "22"
             }, 
             {
-                "temperature": "Tnight", 
+                "temperature": "Tday", 
                 "hour": "23"
             }
         ], 

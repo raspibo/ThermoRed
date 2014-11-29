@@ -74,7 +74,8 @@ descrizioni che verranno comunque "ricreate" solamente dopo un azzeramento del "
 vedi pagina "Azzera temperature.csv".</p>
 <p>Sono da associare le descrizioni dei sensori con le opportune/relative sonde di temperatura.</p>
 <p>Altri valori non sono editabili.</p>
-<p></p>
+<p>L'uscita di riscaldamento l'ho lasciata selezionabile, ma in realta`, in questa maschera e`
+considerata solo la descrizione</p>
 <br/>
 <br/>
 """)
@@ -93,41 +94,17 @@ for i in range(len(ConfigFile)):
 		# Appoggio a variabile l'array
 		SensoriArray = ConfigFile[i]["value"]
 
+for i in range(len(ConfigFile)):
+	if "outs" == (ConfigFile[i]["name"]):
+		# Appoggio a variabile l'array
+		OutsArray = ConfigFile[i]["value"]
+
 
 # Start FORM input
 # write*.py
 print("<form action=\"/cgi-bin/writegraph.py\" method=\"post\">")
 print("<table>")
 
-"""
-for i in range(len(GraphArray)):
-	if "minutegraph" == GraphArray[i]["name"]:
-		Disable = "readonly"
-	else:
-		Disable = ""
-	print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",GraphArray[i]["display"],"\" size=\"40\" required ",Disable,"></td></tr>", sep="")
-	#print("<tr><td>Identificazione:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" required ",Disable,"></td></tr>", sep="")
-	#print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" required ",Disable,"></td></tr>", sep="")
-	if "fixed" == GraphArray[i]["value"]:
-		print("<tr><td>Nome:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" readonly></td></tr>", sep="")
-		print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" readonly></td></tr>", sep="")
-	elif Disable != "":
-		print("<tr><td>Nome:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" readonly></td></tr>", sep="")
-		print("<tr><td>Valore:</td><td><input type=\"number\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" min=\"1\" max=\"60\" maxlength=\"2\" size=\"2\" required></td></tr>", sep="")
-	else:
-		print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" readonly></td></tr>", sep="")
-		#print("<tr><td>Valore:</td><td><input type=\"number\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" readonly></td></tr>", sep="")
-		print("<tr><td>Nome:</td><td><select name=\"name",i,"\">", sep="")
-		for j in range(len(SensoriArray)):
-			if SensoriArray[j]["name"] == GraphArray[i]["name"]:
-				Selected="selected"
-			else:
-				Selected=""
-			print("<option value=\"",SensoriArray[j]["name"],"\"",Selected,">",SensoriArray[j]["name"],"</option>", sep="")
-			#print("<tr><td>Valore:</td><td><input type=\"text\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" size=\"40\" disabled></td></tr>", sep="")
-	print("</select></td></tr>")
-	print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea
-"""
 for i in range(len(GraphArray)):
 	if "minutegraph" == GraphArray[i]["name"]:
 		print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",GraphArray[i]["display"],"\" size=\"40\" required readonly></td></tr>", sep="")
@@ -153,6 +130,21 @@ for i in range(len(GraphArray)):
 				Selected=""
 			print("<option value=\"",SensoriArray[j]["name"],"\"",Selected,">",SensoriArray[j]["display"],"</option>", sep="")
 		print("</select></td></tr>")
+	elif "varout" == GraphArray[i]["name"]:
+		print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",GraphArray[i]["display"],"\" size=\"40\" required></td></tr>", sep="")
+		print("<tr><td>Nome:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" required readonly></td></tr>", sep="")
+		print("<tr><td>Valore:</td><td><select name=\"value",i,"\">", sep="")
+		for j in range(len(OutsArray)):
+			if OutsArray[j]["name"] == GraphArray[i]["value"]:
+				Selected="selected"
+			else:
+				Selected=""
+			print("<option value=\"",OutsArray[j]["name"],"\"",Selected,">",OutsArray[j]["display"],"</option>", sep="")
+		print("</select></td></tr>")
+	elif "valout" == GraphArray[i]["name"]:
+		print("<tr><td>Descrizione:</td><td><input type=\"text\" name=\"display",i,"\" value=\"",GraphArray[i]["display"],"\" size=\"40\" required readonly></td></tr>", sep="")
+		print("<tr><td>Nome:</td><td><input type=\"text\" name=\"name",i,"\" value=\"",GraphArray[i]["name"],"\" size=\"40\" required readonly></td></tr>", sep="")
+		print("<tr><td>Valore:</td><td><input type=\"number\" name=\"value",i,"\" value=\"",GraphArray[i]["value"],"\" min=\"6\" max=\"29\" maxlength=\"2\" size=\"2\" required></td></tr>", sep="")
 	else:
 		print("C'e` un'errore")
 	print("<tr><td colspan=\"2\"><hr/></td></tr>")	# Questa e` una riga di tabella in piu` con una linea

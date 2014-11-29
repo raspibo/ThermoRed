@@ -134,6 +134,7 @@ TempoCiclo = 0
 # Devo controllare/sapere almeno la temperatura PID e quella di setpoint
 # servono per accendere spegnere l'uscita
 #TempSetPoint = 
+StatoUscitaTermostato = 0	# Teoricamente, all'accensione le uscite Raspberry Pi sono "off".
 
 ## Programma
 try:
@@ -189,6 +190,17 @@ try:
 				TemperaturaSetPoint = SearchValue2JsonVar(ConfigFile,"temperature","Tice")	# Metto la piu` bassa (se non e` stata mal configurata)
 				AddFileData("temperature.csv",str(TemperaturaSetPoint))
 			print("Temperatura di Set Point:",TemperaturaSetPoint)
+			AddFileData("temperature.csv",",")
+			# Aggiungo il comando dell'uscita
+			# Qui ho aggiunto due parametri al confug.json, uno per l'uscita da verificare,
+			# anche se gia` la sapevo, quindi forse e` il caso di toglierlo o modificarlo
+			# l'altro per il "valore", inteso come valore di temperatura da "marcare" per
+			# uscita = 1 (on)
+			if StatoUscitaTermostato == 1:
+				ValOut = SearchValue2JsonVar(ConfigFile,"graph","valout")	# Cerco il valore
+				AddFileData("temperature.csv",str(ValOut))
+			else:
+				AddFileData("temperature.csv",str("err"))
 			AddFileData("temperature.csv","\n")	# Ho terminato ed aggiungo il ritorno a capo
 			# Devo azzerare tempi e rileggere le variabili ..
 			TempoInizio[0] = int(time.time())
@@ -282,6 +294,8 @@ try:
 				#		print("Spegni uscita",UscitaTermostato)
 				#		GPIO.output(UscitaTermostato, False)
 				#################################################################################
+			# Memorizzo lo stato dell'uscita termostato
+			StatoUscitaTermostato = GPIO.input(UscitaTermostato)
 			# Devo azzerare tempi e rileggere le variabili ..
 			TempoInizio[1] = int(time.time())
 			ConfigFile = ReadJsonFile("config.json")

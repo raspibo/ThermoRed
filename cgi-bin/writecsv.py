@@ -87,6 +87,8 @@ for i in range(len(GraphArray)):
 		FileTemp.write(GraphArray[i]["display"])
 		FileTemp.write(",")
 FileTemp.write(SearchDisplayJsonVar(GraphArray,"setpoint"))
+FileTemp.write(",")
+FileTemp.write(SearchDisplayJsonVar(GraphArray,"varout"))
 FileTemp.write('\n')
 FileTemp.close()
 

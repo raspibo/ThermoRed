@@ -145,6 +145,16 @@
                 "display": "Set Point", 
                 "value": "fixed", 
                 "name": "setpoint"
+            }, 
+            {
+                "display": "Uscita di Riscaldamento", 
+                "value": "outterm", 
+                "name": "varout"
+            }, 
+            {
+                "display": "Valore sul grafico per l'uscita di riscaldamento", 
+                "value": "21", 
+                "name": "valout"
             }
         ], 
         "name": "graph"
