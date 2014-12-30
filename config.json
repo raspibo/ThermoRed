@@ -14,7 +14,7 @@
         "value": [
             {
                 "display": "Temperatura Giorno", 
-                "value": 20, 
+                "value": 19, 
                 "name": "Tday"
             }, 
             {
@@ -97,7 +97,7 @@
             }, 
             {
                 "display": "Temperatura inerziale positiva PID", 
-                "value": "0", 
+                "value": "3", 
                 "name": "tempcycle+"
             }, 
             {
@@ -158,5 +158,31 @@
             }
         ], 
         "name": "graph"
+    }, 
+    {
+        "display": "Redis", 
+        "value": [
+            {
+                "display": "Hostname", 
+                "value": "redis", 
+                "name": "host"
+            }, 
+            {
+                "display": "Port", 
+                "value": "6379", 
+                "name": "port"
+            }, 
+            {
+                "display": "Database", 
+                "value": "0", 
+                "name": "db"
+            }, 
+            {
+                "display": "Password", 
+                "value": "", 
+                "name": "password"
+            }
+        ], 
+        "name": "redis"
     }
 ]

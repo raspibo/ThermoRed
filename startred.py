@@ -17,10 +17,9 @@ e` tutto da vedere
 
 """
 
-import time
-import os
-import json
+import time,os,json,redis
 import RPi.GPIO as GPIO
+
 
 # Nota: GPIO.BOARD utilizza il "connettore pin numero"
 # Per esempio, per usare il GPIO22 si deve specificare il pin 15: GPIO.setup(15, GPIO.OUT)
@@ -109,14 +108,31 @@ def AddFileData(Filename,Dato):
 		print ("Errore, manca il file", Filename)
 		exit()
 
+### QUESTA ROBA E' DA SISTEMARE, SERVIRA' IMPOSTAZIONE DA QUALCHE PARTE
+# Funzione per aprire il DB
+def OpenDB():
+    Hostname = SearchValue2JsonVar(ConfigFile,"redis","host")
+    Port = SearchValue2JsonVar(ConfigFile,"redis","port")
+    Database = SearchValue2JsonVar(ConfigFile,"redis","db")
+    Password = SearchValue2JsonVar(ConfigFile,"redis","password")
+    print (Hostname, Port, Database, Password, "\n")
+    DB = redis.StrictRedis(host=Hostname, port=Port, db=Database, password=Password)
+    return DB
+
+def InviaAvviso(MsgID,Type,Desc,Value,UM,Date):
+    MyDB=OpenDB()
+    MyDB.hmset(MsgID, {"type": Type, "desc": Desc, "value": Value, "um": UM, "date": Date})
+
 
 ### Programma ###
 
 # Carico da qua i moduli del kernel,
 # visto che a causa della GPIO devo eseguire il programma da root
+# Ho aggiunto un ritardo per dare il tempo di caricare i moduli
 os.system("modprobe w1_gpio")
+time.sleep(1)
 os.system("modprobe w1_therm")
-
+time.sleep(1)
 
 # Mi serve un tempo d'inizio per l'aggiornamento Grafico e per il PID
 # TempoInizio[0] grafico
@@ -166,6 +182,10 @@ try:
 						# Mi serve il valore per il confronto ed il comando dell'uscita
 						TemperaturaLetta=int(Sensore[69:])/1000
 						print("Temperatura Letta:", TemperaturaLetta)
+						# Qua ogni tanto va in errore con una temperatura elevata, mettiamo il controllo e la segnalazione
+						if TemperaturaLetta > 25 or TemperaturaLetta < 0:
+						    InviaAvviso("msg:rpi2:tempR:"+time.strftime("%Y%m%d%H%M%S", time.localtime()),"alert","Temperatura letta fuori range",TemperaturaLetta,"C",time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()))
+						    TemperaturaLetta="err"
 						AddFileData("temperature.csv",str(TemperaturaLetta))
 					else:
 						AddFileData("temperature.csv","err")	# err, se errore sonda, il grafico non visualizza (ok)
@@ -282,8 +302,8 @@ try:
 					print("Accendo uscita",UscitaTermostato)
 					GPIO.output(UscitaTermostato, True)
 				# Se set point - inerziale e` maggiore
-				elif TemperaturaLetta + TemperaturaInerzialePositiva > int(TemperaturaSetPoint):
-					print("?:",TemperaturaLetta,"+",TemperaturaInerzialePositiva,">",int(TemperaturaSetPoint))
+				elif TemperaturaLetta - TemperaturaInerzialePositiva > int(TemperaturaSetPoint):
+					print("?:",TemperaturaLetta,"-",TemperaturaInerzialePositiva,">",int(TemperaturaSetPoint))
 					print("Spengo uscita",UscitaTermostato)
 					GPIO.output(UscitaTermostato, False)
 				#if abs(int(TemperaturaSetPoint) - TemperaturaLetta) > TemperaturaApprossimazione:

@@ -81,11 +81,6 @@ print("""
     opterei per il fatto che sia anche un problema)</li>
     </ul>
 </li>
-<li>Filename</li>
-    <ul>
-    <li>"w1_bus_master1" non e` un sensore, e` generato dal sistema, non selezionatelo.</li>
-    </ul>
-</li>
 </ul>
 <br/>
 <br/>
@@ -96,6 +91,7 @@ for i in range(len(ConfigFile)):
 	if "dir1w" == (ConfigFile[i]["name"]):
 		# Appoggio a variabile
 		Dir1wire = os.listdir(ConfigFile[i]["value"])
+		Dir1wire.remove("w1_bus_master1")
 
 # Stampo sulla pagina web il listato della directory dei sensori 1wire
 # teoricamente e` da togliere sempre l'ultimo risultato,
