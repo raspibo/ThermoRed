@@ -164,7 +164,7 @@
         "value": [
             {
                 "display": "Hostname", 
-                "value": "redis", 
+                "value": "centred", 
                 "name": "host"
             }, 
             {

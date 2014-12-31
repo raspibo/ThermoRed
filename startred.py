@@ -17,7 +17,7 @@ e` tutto da vedere
 
 """
 
-import time,os,json,redis
+import time,os,json,redis,socket
 import RPi.GPIO as GPIO
 
 
@@ -108,20 +108,29 @@ def AddFileData(Filename,Dato):
 		print ("Errore, manca il file", Filename)
 		exit()
 
-### QUESTA ROBA E' DA SISTEMARE, SERVIRA' IMPOSTAZIONE DA QUALCHE PARTE
-# Funzione per aprire il DB
-def OpenDB():
-    Hostname = SearchValue2JsonVar(ConfigFile,"redis","host")
-    Port = SearchValue2JsonVar(ConfigFile,"redis","port")
-    Database = SearchValue2JsonVar(ConfigFile,"redis","db")
-    Password = SearchValue2JsonVar(ConfigFile,"redis","password")
-    print (Hostname, Port, Database, Password, "\n")
-    DB = redis.StrictRedis(host=Hostname, port=Port, db=Database, password=Password)
-    return DB
+# Controlla una connessione di rete
+def NetCheck(Hostname,Port):
+	s = socket.socket()
+	try:
+		s.connect((Hostname,Port))
+	except socket.error as msg:
+		print("Non ho trovato/non mi collego a %s:%d.\nIl messaggio d\'errore e`: %s" % (Hostname, Port, msg))
+		return False
+	else:
+		return True
 
+
+# Funzione invio avvisi al database (Redis)
 def InviaAvviso(MsgID,Type,Desc,Value,UM,Date):
-    MyDB=OpenDB()
-    MyDB.hmset(MsgID, {"type": Type, "desc": Desc, "value": Value, "um": UM, "date": Date})
+	Hostname = SearchValue2JsonVar(ConfigFile,"redis","host")
+	Port = int(SearchValue2JsonVar(ConfigFile,"redis","port"))
+	Database = SearchValue2JsonVar(ConfigFile,"redis","db")
+	Password = SearchValue2JsonVar(ConfigFile,"redis","password")
+	if NetCheck(Hostname,Port):
+		DB = redis.StrictRedis(host=Hostname, port=Port, db=Database, password=Password)
+		DB.hmset(MsgID, {"type": Type, "desc": Desc, "value": Value, "um": UM, "date": Date})
+	else:
+		print ("Non posso inviare l\'avviso a \"%s:%d\".\n" % (Hostname,Port))
 
 
 ### Programma ###
@@ -184,8 +193,8 @@ try:
 						print("Temperatura Letta:", TemperaturaLetta)
 						# Qua ogni tanto va in errore con una temperatura elevata, mettiamo il controllo e la segnalazione
 						if TemperaturaLetta > 25 or TemperaturaLetta < 0:
-						    InviaAvviso("msg:rpi2:tempR:"+time.strftime("%Y%m%d%H%M%S", time.localtime()),"alert","Temperatura letta fuori range",TemperaturaLetta,"C",time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()))
-						    TemperaturaLetta="err"
+							InviaAvviso("msg:rpi2:tempR:"+time.strftime("%Y%m%d%H%M%S", time.localtime()),"alert","Temperatura letta fuori range",TemperaturaLetta,"C",time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()))
+							TemperaturaLetta="err"
 						AddFileData("temperature.csv",str(TemperaturaLetta))
 					else:
 						AddFileData("temperature.csv","err")	# err, se errore sonda, il grafico non visualizza (ok)
@@ -238,7 +247,6 @@ try:
 		if int(time.time()) - TempoInizio[1] > TempoCiclo:
 			# Prima di tutto, guardo se .. manuale/on/off e setto una variabile
 			EnableCycle = SearchValueJsonVar(ConfigFile,"on")
-			print("Enable:",EnableCycle)
 			print("In ciclo \"Aggiornamento Ciclico\" .. ")
 			# Set uscite termostato per comando
 			UscitaConfPID = SearchValue2JsonVar(ConfigFile,"pid","outterm")	# Cerco l'usicta configurate nel PID
