@@ -1,7 +1,9 @@
 ThermoRed
 =========
 
-CronoTermostato "ThermoRed" (Perche` inizialmente avevo pensato a un'interfaccia "rossa")
+**Progetto obsoleto e abbandonato**, la nuova versione e\` stata denominata [Thermo](https://github.com/raspibo/Thermo.git).
+
+CronoTermostato "ThermoRed" (Perche` inizialmente avevo pensato a un'interfaccia "rossa").
 
 Lo scopo e\` realizzare sul Raspberry Pi un qualcosa di leggero e semplice,
 cioe\` un programma modificabile da chiunque sappia digitare su una tastiera,
